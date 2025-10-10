@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaigua Tech Empire</title>
+  <style>
+    :root {
+      --main-color: #5C6BC0;
+      --accent-color: #80CBC4;
+      --text-color: #2E3C43;
+      --highlight-color: #FFB74D;
+      --background-color: #F6F8FA;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--main-color);
+      color: white;
+      text-align: center;
+      padding: 25px 20px;
+    }
+
+    .tagline {
+      font-style: italic;
+      font-size: 1rem;
+      color: #D1C4E9;
+      margin-top: 5px;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      color: var(--main-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 5px;
+    }
+
+    .card {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      margin-bottom: 30px;
+      border-left: 5px solid var(--highlight-color);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .card h3 {
+      color: var(--main-color);
+      margin-top: 0;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 20px;
+      border-left: 5px solid var(--accent-color);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: var(--main-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3F51B5;
+    }
+
+    #contact a, footer a {
+      color: var(--highlight-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #contact a:hover, footer a:hover {
+      color: #F57C00;
+    }
+
+    footer {
+      background-color: var(--main-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Kaigua Tech Empire</h1>
+    <p class="tagline">Empowering Africa through secure, scalable systems</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <img src="C:\Users\PC\Downloads\empire.png" alt="Kaigua Empire Logo" style="height: 50vh;width:200vh; ">
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Founded by John Kaigua, Kaigua Tech Empire specializes in building scalable, secure backend systems and intuitive interfaces. From rental portals to AI production pipelines, our work blends modular architecture with algorithmic precision for real-world impact.</p>
+     <p>We build and maintain intelligent systems and business intelligent systems.
+Cybersecurity systems that works intelligently without compromising functionalities.
+     </p>
+  </section>
+
+  <section id="solutions">
+    <h2>Our Solutions</h2>
+    <div class="card">
+      <h3>Secure Rental Systems</h3>
+      <p>Modular platform with hashed PINs, payment tracking, and overdue detection tailored for housing and property management.</p>
+    </div>
+    <div class="card">
+      <h3>AI Music Production Pipeline</h3>
+      <p>Automated music generation using Python and ML frameworks with mood-based composition and beat analysis.</p>
+    </div>
+    <div class="card">
+      <h3>Deployment Automation</h3>
+      <p>CI/CD workflows for seamless updates and rollback capability, ideal for dynamic system development.</p>
+    </div>
+    <div class="card">
+      <h3>Complex Calculation Engine</h3>
+      <p>Mathematical engine capable of processing multi-variable equations, interest logic, and predictive modeling.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="card">
+      <h3>KAIGUA Rentals Portal</h3>
+      <p>Full-featured property platform with secure login, admin dashboard, rent analytics, and scalable architecture.</p>
+    </div>
+    <div class="card">
+      <h3>Overdue Rent Calculator</h3>
+      <p>Detection tool with custom thresholds, penalty calculation, and real-time administrative feedback.</p>
+    </div>
+    <div class="card">
+      <h3>Admin Dashboard + LoginPage</h3>
+      <p>Styled interfaces with visibility fixes, dynamic theme toggling, and modular access control.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Get In Touch</h2>
+    <p><a href="mailto:kaiguajohn4@gmail.com">Empire Email</a></p>
+    <p><a href="tel:+254700877033">Call Kaigua Tech Empire</a></p>
+
+    <form action="mailto:kaiguajohn4@gmail.com" method="POST">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="message">Your Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Kaigua Tech Empire. Built with ♥ and clean code.</p>
+    <p><a href="mailto:kaiguajohn4@gmail.com">Empire Email</a> • <a href="tel:+254700877033">✅Call Us</a></p>
+  </footer>
+
+</body>
+</html>
