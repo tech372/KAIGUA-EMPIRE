@@ -143,7 +143,42 @@
         display: block;
         margin: 10px 0;
       }
-    }
+      .card {
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.card p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.visit-button {
+  padding: 12px 20px;
+  background-color: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.visit-button:hover {
+  background-color: #005fa3;
+}
+}
+    
   </style>
 </head>
 <body>
@@ -152,10 +187,10 @@
     <h1>Kaigua Tech Empire</h1>
     <p class="tagline">Empowering Africa through secure, scalable systems</p>
     <nav>
-      <a href="#about">About</a>
-      <a href="#solutions">Solutions</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+      <a href="#about">🧑‍💼About</a>
+      <a href="#solutions">🧠 Solutions</a>
+      <a href="#projects">🧩Projects</a>
+      <a href="#contact">📞Contact</a>
     </nav>
   </header>
   <img src="C:\Users\PC\Downloads\empire.png" alt="Kaigua Empire Logo" style="height: 50vh;width:200vh; ">
@@ -201,12 +236,21 @@ Cybersecurity systems that works intelligently without compromising functionalit
       <h3>Admin Dashboard + LoginPage</h3>
       <p>Styled interfaces with visibility fixes, dynamic theme toggling, and modular access control.</p>
     </div>
+    <div class="card">
+  <h3>🏗️ Nimo Hardware – E-commerce Platform</h3>
+  <p>
+    A dynamic online storefront for selling hardware items like cement, metals, and construction tools. Features include product categorization, secure checkout, and responsive design for mobile users.
+  </p>
+  <button onclick="window.open('https://tech372.github.io/Nimo-Hardware/', '_blank')" class="visit-button">
+  Visit Site
+</button>
+</div>
   </section>
 
   <section id="contact">
     <h2>Get In Touch</h2>
     <p><a href="mailto:kaiguajohn4@gmail.com">Empire Email</a></p>
-    <p><a href="tel:+254700877033">Call Kaigua Tech Empire</a></p>
+    <p><a href="tel:+254700877033">📞 Call Kaigua Tech Empire</a></p>
 
     <form action="mailto:kaiguajohn4@gmail.com" method="POST">
       <label for="name">Your Name:</label>
