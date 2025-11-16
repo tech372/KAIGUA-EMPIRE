@@ -1,9 +1,11 @@
-// Service Worker for Kaigua Tech Empire
-const CACHE_NAME = 'kaigua-tech-v1.2.0';
+// Service Worker for Kaigua Tech Empire - GitHub Pages
+const CACHE_NAME = 'kaigua-tech-v1.0.0';
 const urlsToCache = [
-  './',
-  './index.html',
-  './manifest.json'
+  '/',
+  '/index.html',
+  '/manifest.json',
+  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
 // Install event - cache essential resources
@@ -17,7 +19,7 @@ self.addEventListener('install', (event) => {
         return cache.addAll(urlsToCache);
       })
       .then(() => {
-        console.log('✅ All resources cached');
+        console.log('✅ All resources cached successfully');
         return self.skipWaiting();
       })
       .catch((error) => {
@@ -41,7 +43,7 @@ self.addEventListener('activate', (event) => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker activated');
+      console.log('✅ Service Worker activated and ready');
       return self.clients.claim();
     })
   );
@@ -49,33 +51,91 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache or network
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests and chrome-extension requests
-  if (event.request.method !== 'GET' || event.request.url.startsWith('chrome-extension://')) {
+  // Skip non-GET requests
+  if (event.request.method !== 'GET') {
     return;
   }
 
+  // Handle navigation requests specially for GitHub Pages
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      caches.match('/index.html')
+        .then((cachedResponse) => {
+          if (cachedResponse) {
+            console.log('📂 Serving index.html from cache');
+            return cachedResponse;
+          }
+          
+          // If not in cache, fetch from network
+          return fetch(event.request)
+            .then((networkResponse) => {
+              // Cache the response for future use
+              const responseToCache = networkResponse.clone();
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  cache.put(event.request, responseToCache);
+                });
+              return networkResponse;
+            })
+            .catch(() => {
+              // If network fails, serve basic offline page
+              return new Response(
+                `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                  <title>Kaigua Tech Empire - Offline</title>
+                  <style>
+                    body { 
+                      font-family: Arial, sans-serif; 
+                      text-align: center; 
+                      padding: 50px; 
+                      background: #5C6BC0; 
+                      color: white; 
+                    }
+                  </style>
+                </head>
+                <body>
+                  <h1>Kaigua Tech Empire</h1>
+                  <p>You are currently offline.</p>
+                  <p>Please check your internet connection.</p>
+                </body>
+                </html>
+                `,
+                {
+                  headers: {
+                    'Content-Type': 'text/html',
+                  },
+                }
+              );
+            });
+        })
+    );
+    return;
+  }
+
+  // For all other requests (CSS, JS, images, fonts, etc.)
   event.respondWith(
     caches.match(event.request)
-      .then((response) => {
-        // Return cached version if found
-        if (response) {
+      .then((cachedResponse) => {
+        // Return cached version if available
+        if (cachedResponse) {
           console.log('📂 Serving from cache:', event.request.url);
-          return response;
+          return cachedResponse;
         }
 
-        // Otherwise fetch from network
+        // Otherwise, fetch from network
         console.log('🌐 Fetching from network:', event.request.url);
         return fetch(event.request)
           .then((networkResponse) => {
             // Check if we received a valid response
-            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+            if (!networkResponse || networkResponse.status !== 200) {
               return networkResponse;
             }
 
-            // Clone the response
+            // Clone the response to cache it
             const responseToCache = networkResponse.clone();
-
-            // Add to cache for future visits
+            
             caches.open(CACHE_NAME)
               .then((cache) => {
                 cache.put(event.request, responseToCache);
@@ -87,13 +147,18 @@ self.addEventListener('fetch', (event) => {
           .catch((error) => {
             console.error('❌ Fetch failed:', error);
             
-            // If both cache and network fail, show offline page
-            if (event.request.destination === 'document') {
-              return caches.match('./index.html');
+            // For API requests or other non-essential resources
+            // Return a generic offline response
+            if (event.request.destination === 'script' || 
+                event.request.destination === 'style' ||
+                event.request.destination === 'font') {
+              return new Response('', {
+                status: 408,
+                statusText: 'Offline'
+              });
             }
             
-            // For other resources, you could return a fallback
-            return new Response('Network error happened', {
+            return new Response('Network error occurred', {
               status: 408,
               headers: { 'Content-Type': 'text/plain' },
             });
@@ -102,113 +167,60 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Handle messages from the main thread
+// Handle service worker messages
 self.addEventListener('message', (event) => {
-  console.log('📨 Message received in service worker:', event.data);
+  console.log('📨 Message received:', event.data);
   
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
   
+  // Respond to version requests
   if (event.data && event.data.type === 'GET_VERSION') {
-    event.ports[0].postMessage({ version: CACHE_NAME });
+    event.ports[0].postMessage({
+      version: CACHE_NAME,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
-// Handle push notifications (optional - for future use)
+// Handle push notifications (for future use)
 self.addEventListener('push', (event) => {
   console.log('📬 Push notification received');
   
-  if (!event.data) return;
-  
-  const data = event.data.json();
   const options = {
-    body: data.body || 'New update from Kaigua Tech Empire',
-    icon: './icons/icon-192x192.png',
-    badge: './icons/icon-96x96.png',
-    tag: 'kaigua-notification',
-    requireInteraction: true,
-    actions: [
-      {
-        action: 'open',
-        title: 'Open App'
-      },
-      {
-        action: 'close',
-        title: 'Close'
-      }
-    ]
+    body: 'New update from Kaigua Tech Empire',
+    icon: '/icons/icon-192x192.png',
+    badge: '/icons/icon-96x96.png',
+    tag: 'kaigua-update',
+    requireInteraction: true
   };
   
   event.waitUntil(
-    self.registration.showNotification(data.title || 'Kaigua Tech Empire', options)
+    self.registration.showNotification('Kaigua Tech Empire', options)
   );
 });
 
 // Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
   console.log('🔔 Notification clicked');
-  
   event.notification.close();
   
-  if (event.action === 'open') {
-    event.waitUntil(
-      clients.matchAll({ type: 'window' }).then((windowClients) => {
-        // Check if app is already open
-        for (let client of windowClients) {
-          if (client.url.includes(self.location.origin) && 'focus' in client) {
-            return client.focus();
-          }
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then((windowClients) => {
+      // Focus existing window or open new one
+      for (let client of windowClients) {
+        if (client.url.includes(self.location.origin)) {
+          return client.focus();
         }
-        
-        // If not open, open new window
-        if (clients.openWindow) {
-          return clients.openWindow('./');
-        }
-      })
-    );
-  }
-});
-
-// Handle background sync (optional - for future use)
-self.addEventListener('sync', (event) => {
-  console.log('🔄 Background sync:', event.tag);
-  
-  if (event.tag === 'background-sync') {
-    event.waitUntil(doBackgroundSync());
-  }
-});
-
-// Background sync function
-function doBackgroundSync() {
-  return new Promise((resolve) => {
-    console.log('🔄 Performing background sync...');
-    // Add your background sync logic here
-    setTimeout(() => {
-      console.log('✅ Background sync completed');
-      resolve();
-    }, 1000);
-  });
-}
-
-// Handle periodic background sync (optional)
-self.addEventListener('periodicsync', (event) => {
-  if (event.tag === 'content-update') {
-    console.log('🔄 Periodic sync for content updates');
-    event.waitUntil(updateContent());
-  }
-});
-
-function updateContent() {
-  return fetch('./')
-    .then(response => {
-      if (response.ok) {
-        console.log('✅ Content updated successfully');
+      }
+      
+      if (clients.openWindow) {
+        return clients.openWindow('/');
       }
     })
-    .catch(error => {
-      console.error('❌ Content update failed:', error);
-    });
-}
+  );
+});
 
-console.log('👷 Service Worker loaded successfully');
+// Log that service worker is loaded
+console.log('👷 Service Worker loaded successfully - Kaigua Tech Empire');

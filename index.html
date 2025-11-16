@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Kaigua Tech Empire - Empowering Africa Through Secure, Scalable Technology Solutions">
@@ -8,11 +8,10 @@
   <!-- PWA Meta Tags -->
   <meta name="theme-color" content="#5C6BC0" />
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Kaigua Tech">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="msapplication-TileColor" content="#5C6BC0">
-  <meta name="msapplication-TileImage" content="https://img.icons8.com/color/144/000000/africa.png">
   
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Kaigua Tech Empire - Empowering Africa Through Technology">
@@ -29,17 +28,17 @@
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
   <meta name="twitter:site" content="@kaiguatech">
   
+  <!-- GitHub Pages Base URL -->
+  <base href="/">
+  
   <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+  <link rel="manifest" href="manifest.json">
   
   <!-- Icons -->
-  <!-- Replace these lines in your HTML head -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSI0OCIgY3k9IjQ4IiByPSI0OCIgZmlsbD0iIzVDNkJDMyIvPgogIDxwYXRoIGQ9Ik00OCAxOGMtMTYuNSAwLTMwIDEzLjUtMzAgMzBzMTMuNSAzMCAzMCAzMCAzMC0xMy41IDMwLTMwLTEzLjUtMzAtMzAtMzB6bTAgNDhjLTkuOSAwLTE4LTguMS0xOC0xOHM4LjEtMTggMTgtMTggMTggOC4xIDE4IDE4LTguMSAxOC0xOCAxOHoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNNjAgMzdjMC02LjYtNS40LTEyLTEyLTEycy0xMiA1LjQtMTIgMTIgNS40IDEyIDEyIDEyIDEyLTUuNCAxMi0xMnptLTIwIDIxYy0yLjIgMC00IDEuOC00IDRzMS44IDQgNCA0IDQtMS44IDQtNC0xLjgtNC00LTR6bTE4LTRjLTIuMiAwLTQgMS44LTQgNHMxLjggNCA0IDQgNC0xLjggNC00LTEuOC00LTQtNHoiIGZpbGw9IiM0Q0FGNTAiLz4KPC9zdmc+">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSI0OCIgY3k9IjQ4IiByPSI0OCIgZmlsbD0iIzVDNkJDMyIvPgogIDxwYXRoIGQ9Ik00OCAxOGMtMTYuNSAwLTMwIDEzLjUtMzAgMzBzMTMuNSAzMCAzMCAzMCAzMC0xMy41IDMwLTMwLTEzLjUtMzAtMzAtMzB6bTQgNDhjLTkuOSAwLTE4LTguMS0xOC0xOHM4LjEtMTggMTgtMTggMTggOC4xIDE4IDE4LTguMSAxOC0xOCAxOHoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNNjAgMzdjMC02LjYtNS40LTEyLTEyLTEycy0xMiA1LjQtMTIgMTIgNS40IDEyIDEyIDEyIDEyLTUuNCAxMi0xMnptLTIwIDIxYy0yLjIgMC00IDEuOC00IDRzMS44IDQgNCA0IDQtMS44IDQtNC0xLjgtNC00LTR6bTE4LTRjLTIuMiAwLTQgMS44LTQgNHMxLjggNCA0IDQgNC0xLjggNC00LTEuOC00LTQtNHoiIGZpbGw9IiM0Q0FGNTAiLz4KPC9zdmc+">
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iOTYiIGZpbGw9IiM1QzZCQzAiLz4KICA8cGF0aCBkPSJNOTYgMzZjLTUzIDAtOTYgNDMtOTYgOTZzNDMgOTYgOTYgOTYgOTYtNDMgOTYtOTYtNDMtOTYtOTYtOTZ6bTAgMTYwYy0zNS4zIDAtNjQtMjguNy02NC02NHMyOC43LTY0IDY0LTY0IDY0IDI4LjcgNjQgNjQtMjguNyA2NC02NCA2NHoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNOTYgNDhjLTI2LjUgMC00OCAyMS41LTQ4IDQ4czIxLjUgNDggNDggNDggNDgtMjEuNSA0OC00OC0yMS41LTQ4LTQ4LTQ4em0wIDgwYy0xNy43IDAtMzItMTQuMy0zMi0zMnMxNC4zLTMyIDMyLTMyIDMyIDE0LjMgMzIgMzItMTQuMyAzMi0zMiAzMnoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNMTEwIDc1YzAtOC44LTcuMi0xNi0xNi0xNnMtMTYgNy4yLTE2IDE2IDcuMiAxNiAxNiAxNiAxNi03LjIgMTYtMTZ6bS0yOCA0NWMtNC40IDAtOCAzLjYtOCA4czMuNiA4IDggOCA4LTMuNiA4LTgtMy42LTgtOC04em0zNS04Yy00LjQgMC04IDMuNi04IDhzMy42IDggOCA4IDgtMy42IDgtOC0zLjYtOC04LTh6IiBmaWxsPSIjNENBRjUwIi8+Cjwvc3ZnPg==">
-  <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/000000/africa.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="https://img.icons8.com/color/152/000000/africa.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/color/180/000000/africa.png">
-  <link rel="apple-touch-icon" sizes="167x167" href="https://img.icons8.com/color/167/000000/africa.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUyIiBoZWlnaHQ9IjE1MiIgdmlld0JveD0iMCAwIDE1MiAxNTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGNpcmNsZSBjeD0iNzYiIGN5PSI3NiIgcj0iNzYiIGZpbGw9IiM1QzZCQzAiLz4KICA8cGF0aCBkPSJNNzYgMjhjLTI2LjUgMC00OCAyMS41LTQ4IDQ4czIxLjUgNDggNDggNDggNDgtMjEuNSA0OC00OC0yMS41LTQ4LTQ4LTQ4em0wIDgwYy0xNy43IDAtMzItMTQuMy0zMi0zMnMxNC4zLTMyIDMyLTMyIDMyIDE0LjMgMzIgMzItMTQuMyAzMi0zMiAzMnoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNOTUgNTljMC02LjYtNS40LTEyLTEyLTEycy0xMiA1LjQtMTIgMTIgNS40IDEyIDEyIDEyIDEyLTUuNCAxMi0xMnptLTI1IDI2Yy0yLjIgMC00IDEuOC00IDRzMS44IDQgNCA0IDQtMS44IDQtNC0xLjgtNC00LTR6bTIyLTRjLTIuMiAwLTQgMS44LTQgNHMxLjggNCA0IDQgNC0xLjggNC00LTEuOC00LTQtNHoiIGZpbGw9IiM0Q0FGNTAiLz4KPC9zdmc+">
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGNpcmNsZSBjeD0iOTAiIGN5PSI5MCIgcj0iOTAiIGZpbGw9IiM1QzZCQzAiLz4KICA8cGF0aCBkPSJNOTEgMzFjLTMyLjYgMC01OSAyNi40LTU5IDU5czI2LjQgNTkgNTkgNTkgNTktMjYuNCA1OS01OS0yNi40LTU5LTU5LTU5em0wIDk0Yy0xOS4zIDAtMzUtMTUuNy0zNS0zNXMxNS43LTM1IDM1LTM1IDM1IDE1LjcgMzUgMzUtMTUuNyAzNS0zNSAzNXoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNMTEyIDY5Yy03LjcgMC0xNCA2LjMtMTQgMTRzNi4zIDE0IDE0IDE0IDE0LTYuMyAxNC0xNC02LjMtMTQtMTQtMTR6bS0yOSAzMWMtMi42IDAtNC43IDIuMS00LjcgNC43czIuMSA0LjcgNC43IDQuNyA0LjctMi4xIDQuNy00LjctMi4xLTQuNy00LjctNC43em0yNi00Yy0yLjYgMC00LjcgMi4xLTQuNyA0LjdzMi4xIDQuNyA0LjcgNC43IDQuNy0yLjEgNC43LTQuNy0yLjEtNC43LTQuNy00Ljd6IiBmaWxsPSIjNENBRjUwIi8+Cjwvc3ZnPg==">
   
   <!-- Preload critical resources -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -3872,9 +3871,12 @@
       }
       
       // Replace the registerServiceWorker method in your HTML with this:
+      // In your HTML file, update the registerServiceWorker method:
 async registerServiceWorker() {
   try {
     if ('serviceWorker' in navigator) {
+      console.log('🔧 Registering Service Worker...');
+      
       // First, unregister any existing service workers
       const existingRegistrations = await navigator.serviceWorker.getRegistrations();
       for (let registration of existingRegistrations) {
@@ -3882,7 +3884,7 @@ async registerServiceWorker() {
         console.log('🗑️ Unregistered old service worker');
       }
 
-      // Register the new service worker
+      // Register the new service worker with proper scope
       const registration = await navigator.serviceWorker.register('./sw.js', {
         scope: './'
       });
@@ -3897,22 +3899,21 @@ async registerServiceWorker() {
         newWorker.addEventListener('statechange', () => {
           console.log('🔄 Service Worker state:', newWorker.state);
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            console.log('🔄 New content available, showing update banner');
+            console.log('🔄 New content available');
             this.showUpdateBanner();
           }
         });
       });
 
-      // Listen for controlled page
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        console.log('🔄 Service Worker controller changed');
-      });
+      // Wait for service worker to be ready
+      if (registration.active) {
+        console.log('✅ Service Worker is active and controlling the page');
+      }
 
       return registration;
     }
   } catch (error) {
     console.error('❌ Service Worker registration failed:', error);
-    // Show user-friendly error
     this.showToast('Some offline features may not be available', 'warning');
   }
 }

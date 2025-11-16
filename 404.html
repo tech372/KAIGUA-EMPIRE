@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaigua Tech Empire</title>
+    <script>
+        // Redirect to the main page
+        sessionStorage.redirect = location.href;
+        location.replace('/' + location.href.split('/').slice(3).join('/'));
+    </script>
+</head>
+<body>
+    <p>Redirecting to Kaigua Tech Empire...</p>
+</body>
+</html>
