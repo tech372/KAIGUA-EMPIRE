@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kaigua Tech Empire - Empowering Africa Through Secure, Scalable Technology Solutions">
   <title>Kaigua Tech Empire - Empowering Africa Through Technology</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +26,24 @@
       --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
       --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      
+      /* Enhanced variables */
+      --header-height: 100px;
+      --status-height: 80px;
+      --border-radius: 16px;
+      --transition-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --card-bg: white;
+      --card-text: var(--text-color);
+      --input-bg: white;
+    }
+
+    /* Dark mode variable overrides */
+    body.dark-mode {
+      --background-color: var(--dark-bg);
+      --text-color: var(--dark-text);
+      --card-bg: var(--dark-card);
+      --card-text: var(--dark-text);
+      --input-bg: #2a3a4a;
     }
 
     * {
@@ -43,14 +62,56 @@
       color: var(--text-color);
       line-height: 1.7;
       overflow-x: hidden;
-      padding-top: 100px;
+      padding-top: var(--header-height);
       transition: var(--transition);
       font-weight: 400;
     }
 
-    body.dark-mode {
-      background-color: var(--dark-bg);
-      color: var(--dark-text);
+    /* Utility Classes */
+    .text-gradient {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .shadow-elevated {
+      box-shadow: var(--card-shadow);
+    }
+
+    .hover-lift {
+      transition: transform 0.3s var(--transition-timing);
+    }
+    .hover-lift:hover {
+      transform: translateY(-5px);
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: var(--border-radius);
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .will-change {
+      will-change: transform, opacity;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     /* Header Styles */
@@ -65,6 +126,7 @@
       z-index: 1000;
       box-shadow: 0 8px 32px rgba(0,0,0,0.1);
       backdrop-filter: blur(10px);
+      contain: layout style paint;
     }
 
     .header-content {
@@ -84,7 +146,7 @@
     .logo {
       width: 65px;
       height: 65px;
-      border-radius: 16px;
+      border-radius: var(--border-radius);
       background: white;
       display: flex;
       align-items: center;
@@ -195,7 +257,7 @@
       text-align: center;
       font-size: 0.9rem;
       position: fixed;
-      top: 80px;
+      top: var(--header-height);
       width: 100%;
       z-index: 999;
       display: flex;
@@ -243,7 +305,7 @@
       text-decoration: none;
       font-weight: 600;
       padding: 14px 22px;
-      border-radius: 16px;
+      border-radius: var(--border-radius);
       transition: var(--transition);
       position: relative;
       font-size: 0.95rem;
@@ -278,7 +340,7 @@
       top: 100%;
       left: 0;
       width: 320px;
-      background: white;
+      background: var(--card-bg);
       border-radius: 20px;
       box-shadow: 0 25px 50px rgba(0,0,0,0.15);
       opacity: 0;
@@ -288,12 +350,6 @@
       z-index: 100;
       padding: 25px;
       border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark-mode .dropdown {
-      background: var(--dark-card);
-      color: var(--dark-text);
-      border: 1px solid rgba(255,255,255,0.1);
     }
 
     .nav-item:hover .dropdown {
@@ -311,20 +367,12 @@
       font-weight: 700;
     }
 
-    body.dark-mode .dropdown h4 {
-      color: var(--accent-color);
-    }
-
     .dropdown p {
-      color: var(--text-color);
+      color: var(--card-text);
       font-size: 0.95rem;
       margin-bottom: 20px;
       line-height: 1.6;
       font-weight: 400;
-    }
-
-    body.dark-mode .dropdown p {
-      color: var(--dark-text);
     }
 
     .dropdown-list {
@@ -352,17 +400,13 @@
     }
 
     .dropdown-list a {
-      color: var(--text-color);
+      color: var(--card-text);
       text-decoration: none;
       transition: var(--transition);
       font-size: 0.95rem;
       font-weight: 500;
       display: block;
       padding: 5px 0;
-    }
-
-    body.dark-mode .dropdown-list a {
-      color: var(--dark-text);
     }
 
     .dropdown-list a:hover {
@@ -571,10 +615,6 @@
       letter-spacing: -1px;
     }
 
-    body.dark-mode h2 {
-      color: var(--accent-color);
-    }
-
     h2::after {
       content: '';
       position: absolute;
@@ -596,7 +636,8 @@
     }
 
     .card {
-      background-color: white;
+      background-color: var(--card-bg);
+      color: var(--card-text);
       box-shadow: var(--card-shadow);
       padding: 40px 35px;
       border-radius: 24px;
@@ -604,11 +645,7 @@
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark-mode .card {
-      background-color: var(--dark-card);
-      color: var(--dark-text);
+      contain: layout style paint;
     }
 
     .card::before {
@@ -641,10 +678,6 @@
       display: flex;
       align-items: center;
       font-weight: 700;
-    }
-
-    body.dark-mode .card h3 {
-      color: var(--accent-color);
     }
 
     .card h3 i {
@@ -686,7 +719,8 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       padding: 20px 25px;
       border-radius: 16px;
       box-shadow: var(--card-shadow);
@@ -697,10 +731,6 @@
     .badge:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
-
-    body.dark-mode .badge {
-      background: var(--dark-card);
     }
 
     .badge i {
@@ -717,16 +747,13 @@
     }
 
     .demo-card {
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       border-radius: 24px;
       overflow: hidden;
       box-shadow: var(--card-shadow);
       transition: var(--transition);
       border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark-mode .demo-card {
-      background: var(--dark-card);
     }
 
     .demo-card:hover {
@@ -798,16 +825,13 @@
 
     /* Case Studies */
     .case-study-expanded {
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       border-radius: 24px;
       padding: 50px;
       box-shadow: var(--card-shadow);
       margin-top: 50px;
       border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark-mode .case-study-expanded {
-      background: var(--dark-card);
     }
 
     .case-metrics {
@@ -841,10 +865,6 @@
       font-weight: 700;
     }
 
-    body.dark-mode .metric-card h4 {
-      color: var(--accent-color);
-    }
-
     .metric-card ul {
       list-style: none;
     }
@@ -874,7 +894,8 @@
     }
 
     .metric-widget {
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       padding: 35px 25px;
       border-radius: 20px;
       text-align: center;
@@ -886,10 +907,6 @@
     .metric-widget:hover {
       transform: translateY(-8px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-
-    body.dark-mode .metric-widget {
-      background: var(--dark-card);
     }
 
     .metric-value {
@@ -905,17 +922,14 @@
 
     /* Pricing Calculator */
     .pricing-calculator {
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       padding: 50px;
       border-radius: 24px;
       box-shadow: var(--card-shadow);
       margin: 50px auto;
       max-width: 550px;
       border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark-mode .pricing-calculator {
-      background: var(--dark-card);
     }
 
     .calculator-form {
@@ -930,23 +944,14 @@
       font-size: 1.1rem;
     }
 
-    body.dark-mode .calculator-form label {
-      color: var(--accent-color);
-    }
-
     .calculator-form select {
       padding: 15px;
       border: 2px solid #e0e0e0;
       border-radius: 12px;
       font-size: 1rem;
       transition: var(--transition);
-      background: white;
-    }
-
-    body.dark-mode .calculator-form select {
-      background: #2a3a4a;
-      border-color: #444;
-      color: var(--dark-text);
+      background: var(--input-bg);
+      color: var(--card-text);
     }
 
     .calculator-form select:focus {
@@ -957,6 +962,7 @@
 
     .quote-result {
       background: var(--light-gray);
+      color: var(--card-text);
       padding: 25px;
       border-radius: 16px;
       text-align: center;
@@ -1001,17 +1007,14 @@
     }
 
     .resource-card {
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       padding: 40px 30px;
       border-radius: 20px;
       text-align: center;
       box-shadow: var(--card-shadow);
       transition: var(--transition);
       border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark-mode .resource-card {
-      background: var(--dark-card);
     }
 
     .resource-card:hover {
@@ -1070,17 +1073,14 @@
       bottom: 30px;
       right: 30px;
       width: 380px;
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       border-radius: 20px;
       box-shadow: 0 25px 50px rgba(0,0,0,0.2);
       z-index: 1000;
       display: none;
       border: 1px solid rgba(255,255,255,0.3);
       overflow: hidden;
-    }
-
-    body.dark-mode .chat-widget {
-      background: var(--dark-card);
     }
 
     .chat-widget.active {
@@ -1246,17 +1246,14 @@
 
     /* Contact Form */
     form {
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       padding: 50px;
       box-shadow: var(--card-shadow);
       margin-top: 40px;
       border-radius: 24px;
       border-left: 6px solid var(--accent-color);
       border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark-mode form {
-      background: var(--dark-card);
     }
 
     .form-group {
@@ -1271,10 +1268,6 @@
       font-size: 1.1rem;
     }
 
-    body.dark-mode label {
-      color: var(--accent-color);
-    }
-
     input, textarea, select {
       width: 100%;
       padding: 16px 20px;
@@ -1283,15 +1276,8 @@
       font-family: inherit;
       font-size: 1rem;
       transition: var(--transition);
-      background: white;
-    }
-
-    body.dark-mode input, 
-    body.dark-mode textarea, 
-    body.dark-mode select {
-      background: #2a3a4a;
-      border-color: #444;
-      color: var(--dark-text);
+      background: var(--input-bg);
+      color: var(--card-text);
     }
 
     input:focus, textarea:focus, select:focus {
@@ -1349,20 +1335,15 @@
     .contact-link {
       display: flex;
       align-items: center;
-      background: white;
+      background: var(--card-bg);
+      color: var(--card-text);
       padding: 20px 30px;
       border-radius: 16px;
       text-decoration: none;
-      color: var(--text-color);
       font-weight: 600;
       transition: var(--transition);
       box-shadow: var(--card-shadow);
       border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    body.dark-mode .contact-link {
-      background: var(--dark-card);
-      color: var(--dark-text);
     }
 
     .contact-link:hover {
@@ -1458,6 +1439,73 @@
       margin-top: 40px;
       font-size: 0.95rem;
       color: rgba(255,255,255,0.8);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      color: var(--card-text);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      color: var(--main-color);
+      transform: rotate(90deg);
+    }
+
+    /* Form Validation Styles */
+    .form-group.error input,
+    .form-group.error textarea,
+    .form-group.error select {
+      border-color: #f5576c;
+      box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.2);
+    }
+
+    .error-message {
+      color: #f5576c;
+      font-size: 0.85rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .form-group.error .error-message {
+      display: block;
     }
 
     /* Responsive Styles */
@@ -1621,6 +1669,10 @@
       .demo-grid {
         grid-template-columns: 1fr;
       }
+
+      .modal-content {
+        padding: 30px 20px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -1719,26 +1771,26 @@
       
       <div class="header-controls">
         <div class="language-switcher">
-          <select id="language-select">
+          <select id="language-select" aria-label="Select language">
             <option value="en">English</option>
             <option value="sw">Swahili</option>
             <option value="fr">French</option>
           </select>
         </div>
         
-        <button class="theme-switcher" id="theme-toggle">
+        <button class="theme-switcher" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fas fa-moon"></i>
           <span>Dark Mode</span>
         </button>
         
-        <a href="#client-login" class="client-portal">
+        <a href="#client-login" class="client-portal" id="client-portal-btn">
           <i class="fas fa-user-shield"></i>
           Client Portal
         </a>
       </div>
       
       <nav>
-        <button class="menu-toggle">
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
           <i class="fas fa-bars"></i>
         </button>
         <ul class="nav-links">
@@ -1751,10 +1803,10 @@
               <h4>About Kaigua Tech Empire</h4>
               <p>Learn about our mission, vision, and the team behind Africa's leading tech solutions provider.</p>
               <ul class="dropdown-list">
-                <li><a href="#about">Our Story</a></li>
-                <li><a href="#team">Our Team</a></li>
-                <li><a href="#values">Our Values</a></li>
-                <li><a href="#mission">Mission & Vision</a></li>
+                <li><a href="#about" class="nav-internal">Our Story</a></li>
+                <li><a href="https://linkedin.com/company" target="_blank" class="nav-external">Our Team</a></li>
+                <li><a href="#values" class="nav-internal">Our Values</a></li>
+                <li><a href="https://medium.com" target="_blank" class="nav-external">Mission & Vision</a></li>
               </ul>
             </div>
           </li>
@@ -1767,10 +1819,10 @@
               <h4>Our Technology Solutions</h4>
               <p>Discover our comprehensive range of tech solutions designed for African businesses.</p>
               <ul class="dropdown-list">
-                <li><a href="#solutions">Secure Rental Systems</a></li>
-                <li><a href="#solutions">AI Music Production</a></li>
-                <li><a href="#solutions">Deployment Automation</a></li>
-                <li><a href="#solutions">Calculation Engines</a></li>
+                <li><a href="#solutions" class="nav-internal">Secure Rental Systems</a></li>
+                <li><a href="https://github.com" target="_blank" class="nav-external">AI Music Production</a></li>
+                <li><a href="https://docker.com" target="_blank" class="nav-external">Deployment Automation</a></li>
+                <li><a href="#solutions" class="nav-internal">Calculation Engines</a></li>
               </ul>
             </div>
           </li>
@@ -1783,10 +1835,10 @@
               <h4>Featured Projects</h4>
               <p>Explore our portfolio of successful implementations and case studies.</p>
               <ul class="dropdown-list">
-                <li><a href="#projects">KAIGUA Rentals Portal</a></li>
-                <li><a href="#projects">Overdue Rent Calculator</a></li>
-                <li><a href="#projects">Admin Dashboard</a></li>
-                <li><a href="#projects">Nimo Hardware E-commerce</a></li>
+                <li><a href="#projects" class="nav-internal">KAIGUA Rentals Portal</a></li>
+                <li><a href="https://tech372.github.io/Nimo-Hardware/" target="_blank" class="nav-external">Nimo Hardware E-commerce</a></li>
+                <li><a href="#projects" class="nav-internal">Admin Dashboard</a></li>
+                <li><a href="https://github.com" target="_blank" class="nav-external">All Projects</a></li>
               </ul>
             </div>
           </li>
@@ -1799,10 +1851,10 @@
               <h4>Get In Touch</h4>
               <p>Ready to start your project? Contact us for consultations and quotes.</p>
               <ul class="dropdown-list">
-                <li><a href="mailto:kaiguajohn4@gmail.com">Email Us</a></li>
-                <li><a href="tel:+254700877033">Call: +254 700 877 033</a></li>
-                <li><a href="#contact-form">Send Message</a></li>
-                <li><a href="#consultation">Schedule Consultation</a></li>
+                <li><a href="mailto:kaiguajohn4@gmail.com" class="nav-external">Email Us</a></li>
+                <li><a href="tel:+254700877033" class="nav-external">Call: +254 700 877 033</a></li>
+                <li><a href="#contact-form" class="nav-internal">Send Message</a></li>
+                <li><a href="#consultation" class="nav-internal">Schedule Consultation</a></li>
               </ul>
             </div>
           </li>
@@ -1810,14 +1862,56 @@
       </nav>
 
       <div class="search-widget">
-        <input type="text" placeholder="Search solutions, projects...">
-        <button type="submit"><i class="fas fa-search"></i></button>
+        <input type="text" id="search-input" placeholder="Search solutions, projects..." aria-label="Search">
+        <button type="submit" id="search-btn" aria-label="Search"><i class="fas fa-search"></i></button>
       </div>
     </div>
   </header>
 
+  <!-- Client Login Modal -->
+  <div class="modal" id="client-login-modal">
+    <div class="modal-content">
+      <button class="close-modal" id="close-client-modal" aria-label="Close modal">&times;</button>
+      <h3>Client Portal Login</h3>
+      <p>Access your projects, support tickets, and system analytics.</p>
+      <form id="client-login-form" style="margin-top: 25px;">
+        <div class="form-group">
+          <label for="client-email">Email Address</label>
+          <input type="email" id="client-email" required>
+          <div class="error-message">Please enter a valid email address</div>
+        </div>
+        <div class="form-group">
+          <label for="client-password">Password</label>
+          <input type="password" id="client-password" required>
+          <div class="error-message">Password is required</div>
+        </div>
+        <button type="submit">Login to Portal</button>
+      </form>
+      <div style="margin-top: 20px; text-align: center;">
+        <a href="https://calendly.com" target="_blank" style="color: var(--main-color);">Request client access</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Consultation Modal -->
+  <div class="modal" id="consultation-modal">
+    <div class="modal-content">
+      <button class="close-modal" id="close-consultation-modal" aria-label="Close modal">&times;</button>
+      <h3>Schedule a Consultation</h3>
+      <p>Book a free 30-minute consultation with our technical team.</p>
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="https://calendly.com/kaiguatech/consultation" target="_blank" class="cta-button" style="display: inline-block;">
+          Book on Calendly
+        </a>
+      </div>
+      <p style="text-align: center; color: #666; font-size: 0.9rem;">
+        Or email us directly at <a href="mailto:consultation@kaiguatech.com">consultation@kaiguatech.com</a>
+      </p>
+    </div>
+  </div>
+
   <!-- Chat Toggle -->
-  <div class="chat-toggle" id="chatToggle">
+  <div class="chat-toggle" id="chatToggle" aria-label="Open chat">
     <i class="fas fa-comments"></i>
   </div>
 
@@ -1827,21 +1921,15 @@
       <h4>Tech Support</h4>
       <span class="status online">Online</span>
     </div>
-    <div class="chat-content" style="padding: 25px; height: 320px; overflow-y: auto; background: #f8f9fa;">
+    <div class="chat-content" id="chat-content" style="padding: 25px; height: 320px; overflow-y: auto; background: #f8f9fa;">
       <div class="chat-message" style="background: white; padding: 15px; border-radius: 18px; margin-bottom: 15px; max-width: 80%; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <p style="margin: 0; font-weight: 500;">Hello! How can we help you today?</p>
-      </div>
-      <div class="chat-message" style="background: white; padding: 15px; border-radius: 18px; margin-bottom: 15px; max-width: 80%; margin-left: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-        <p style="margin: 0; font-weight: 500;">I'm interested in your rental system solutions</p>
-      </div>
-      <div class="chat-message" style="background: #e3f2fd; padding: 15px; border-radius: 18px; margin-bottom: 15px; max-width: 80%; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-        <p style="margin: 0; font-weight: 500;">Great! Our rental systems handle property management, payment tracking, and automated notifications. Would you like me to schedule a demo?</p>
       </div>
     </div>
     <div style="padding: 20px; border-top: 1px solid #e0e0e0; background: white;">
       <div style="display: flex; gap: 10px;">
-        <input type="text" placeholder="Type your message..." style="flex: 1; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 25px; font-size: 0.95rem;">
-        <button style="background: var(--main-color); color: white; border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; font-weight: 600;">Send</button>
+        <input type="text" id="chat-input" placeholder="Type your message..." style="flex: 1; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 25px; font-size: 0.95rem;">
+        <button id="send-chat-btn" style="background: var(--main-color); color: white; border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; font-weight: 600;">Send</button>
       </div>
     </div>
   </div>
@@ -1855,7 +1943,7 @@
       <div class="social-proof">
         <div class="proof-item">
           <i class="fas fa-user-check"></i>
-          <span>Client from Kenya just booked a consultation</span>
+          <span id="proof-text">Client from Kenya just booked a consultation</span>
         </div>
       </div>
     </div>
@@ -1922,6 +2010,7 @@
         </div>
         <h3><i class="fas fa-home"></i> Secure Rental Systems</h3>
         <p>Modular platform with hashed PINs, payment tracking, and overdue detection tailored for housing and property management.</p>
+        <button class="demo-launch" data-demo="rental">View Details</button>
       </div>
       <div class="card fade-in delay-2">
         <div class="card-icon">
@@ -1929,6 +2018,7 @@
         </div>
         <h3><i class="fas fa-robot"></i> AI Music Production Pipeline</h3>
         <p>Automated music generation using Python and ML frameworks with mood-based composition and beat analysis.</p>
+        <button class="demo-launch" data-demo="music">View Details</button>
       </div>
       <div class="card fade-in delay-3">
         <div class="card-icon">
@@ -1936,6 +2026,7 @@
         </div>
         <h3><i class="fas fa-cogs"></i> Deployment Automation</h3>
         <p>CI/CD workflows for seamless updates and rollback capability, ideal for dynamic system development.</p>
+        <button class="demo-launch" data-demo="deployment">View Details</button>
       </div>
       <div class="card fade-in delay-1">
         <div class="card-icon">
@@ -1943,6 +2034,7 @@
         </div>
         <h3><i class="fas fa-brain"></i> Complex Calculation Engine</h3>
         <p>Mathematical engine capable of processing multi-variable equations, interest logic, and predictive modeling.</p>
+        <button class="demo-launch" data-demo="calculations">View Details</button>
       </div>
     </div>
   </section>
@@ -1958,7 +2050,7 @@
         <div class="demo-content">
           <h3>Rental System Demo</h3>
           <p>Experience our property management platform with live data visualization</p>
-          <button class="demo-launch">Launch Demo <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></button>
+          <button class="demo-launch" data-demo="rental-full">Launch Demo <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></button>
         </div>
       </div>
       <div class="demo-card fade-in delay-1">
@@ -1968,7 +2060,7 @@
         <div class="demo-content">
           <h3>AI Music Generator</h3>
           <p>Try our AI-powered music composition tool with different mood settings</p>
-          <button class="demo-launch">Launch Demo <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></button>
+          <button class="demo-launch" data-demo="music-full">Launch Demo <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></button>
         </div>
       </div>
       <div class="demo-card fade-in delay-2">
@@ -1978,7 +2070,7 @@
         <div class="demo-content">
           <h3>Analytics Dashboard</h3>
           <p>Explore our real-time business intelligence and reporting tools</p>
-          <button class="demo-launch">Launch Demo <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></button>
+          <button class="demo-launch" data-demo="analytics-full">Launch Demo <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></button>
         </div>
       </div>
     </div>
@@ -1990,7 +2082,7 @@
       <div class="card project-card fade-in">
         <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1073&q=80')">
           <div class="project-overlay">
-            <button class="visit-button">View Details</button>
+            <button class="visit-button" data-project="rental-portal">View Details</button>
           </div>
         </div>
         <h3><i class="fas fa-building"></i> KAIGUA Rentals Portal</h3>
@@ -1999,7 +2091,7 @@
       <div class="card project-card fade-in delay-1">
         <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
           <div class="project-overlay">
-            <button class="visit-button">View Details</button>
+            <button class="visit-button" data-project="calculator">View Details</button>
           </div>
         </div>
         <h3><i class="fas fa-calculator"></i> Overdue Rent Calculator</h3>
@@ -2008,7 +2100,7 @@
       <div class="card project-card fade-in delay-2">
         <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1333&q=80')">
           <div class="project-overlay">
-            <button class="visit-button">View Details</button>
+            <button class="visit-button" data-project="dashboard">View Details</button>
           </div>
         </div>
         <h3><i class="fas fa-tachometer-alt"></i> Admin Dashboard + LoginPage</h3>
@@ -2017,7 +2109,7 @@
       <div class="card project-card fade-in delay-3">
         <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
           <div class="project-overlay">
-            <button onclick="window.open('https://tech372.github.io/Nimo-Hardware/', '_blank')" class="visit-button">Visit Site <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></button>
+            <button class="visit-button" data-project="nimo-hardware" onclick="window.open('https://tech372.github.io/Nimo-Hardware/', '_blank')">Visit Site <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></button>
           </div>
         </div>
         <h3><i class="fas fa-store"></i> Nimo Hardware – E-commerce Platform</h3>
@@ -2055,7 +2147,7 @@
   <div class="pricing-calculator fade-in">
     <h3>Get Instant Quote</h3>
     <div class="calculator-form">
-      <label>Project Type:</label>
+      <label for="project-type">Project Type:</label>
       <select id="project-type">
         <option value="web">Web Application</option>
         <option value="mobile">Mobile App</option>
@@ -2063,7 +2155,7 @@
         <option value="enterprise">Enterprise System</option>
       </select>
       
-      <label>Estimated Complexity:</label>
+      <label for="complexity">Estimated Complexity:</label>
       <select id="complexity">
         <option value="simple">Simple</option>
         <option value="medium">Medium</option>
@@ -2086,25 +2178,25 @@
         <i class="fas fa-file-pdf"></i>
         <h4>API Documentation</h4>
         <p>Complete technical documentation for our platforms</p>
-        <a href="#" class="download-btn">Download PDF <i class="fas fa-download" style="margin-left: 8px;"></i></a>
+        <a href="https://docs.google.com/document/d/1" target="_blank" class="download-btn">Download PDF <i class="fas fa-download" style="margin-left: 8px;"></i></a>
       </div>
       <div class="resource-card fade-in delay-1">
         <i class="fas fa-video"></i>
         <h4>Integration Tutorials</h4>
         <p>Step-by-step video guides for implementation</p>
-        <a href="#" class="watch-btn">Watch Videos <i class="fas fa-play" style="margin-left: 8px;"></i></a>
+        <a href="https://youtube.com/playlist?list=PL" target="_blank" class="watch-btn">Watch Videos <i class="fas fa-play" style="margin-left: 8px;"></i></a>
       </div>
       <div class="resource-card fade-in delay-2">
         <i class="fas fa-book"></i>
         <h4>Security Best Practices</h4>
         <p>Guidelines for maintaining system security</p>
-        <a href="#" class="download-btn">Download Guide <i class="fas fa-download" style="margin-left: 8px;"></i></a>
+        <a href="https://owasp.org/www-project-top-ten/" target="_blank" class="download-btn">Download Guide <i class="fas fa-download" style="margin-left: 8px;"></i></a>
       </div>
       <div class="resource-card fade-in delay-3">
         <i class="fas fa-chart-line"></i>
         <h4>Performance Reports</h4>
         <p>Quarterly system performance analytics</p>
-        <a href="#" class="download-btn">View Reports <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></a>
+        <a href="https://datastudio.google.com" target="_blank" class="download-btn">View Reports <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i></a>
       </div>
     </div>
   </section>
@@ -2113,8 +2205,8 @@
   <div class="newsletter-section">
     <h3>Tech Insights Newsletter</h3>
     <p>Get monthly updates on African tech trends, security best practices, and industry insights</p>
-    <form class="newsletter-form">
-      <input type="email" placeholder="Your professional email" required>
+    <form class="newsletter-form" id="newsletter-form">
+      <input type="email" id="newsletter-email" placeholder="Your professional email" required>
       <button type="submit">Subscribe <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
     </form>
   </div>
@@ -2129,17 +2221,22 @@
       <a href="tel:+254700877033" class="contact-link">
         <i class="fas fa-phone-alt"></i> Call Kaigua Tech Empire
       </a>
+      <a href="#consultation" class="contact-link" id="schedule-consultation">
+        <i class="fas fa-calendar-alt"></i> Schedule Consultation
+      </a>
     </div>
 
     <form id="professional-contact">
       <div class="form-group">
         <label for="name">Your Name:</label>
         <input type="text" id="name" name="name" required />
+        <div class="error-message">Please enter your name</div>
       </div>
       
       <div class="form-group">
         <label for="email">Your Email:</label>
         <input type="email" id="email" name="email" required />
+        <div class="error-message">Please enter a valid email address</div>
       </div>
 
       <div class="form-group">
@@ -2152,11 +2249,13 @@
           <option value="web-development">Web Development</option>
           <option value="consultation">Technical Consultation</option>
         </select>
+        <div class="error-message">Please select a service interest</div>
       </div>
       
       <div class="form-group">
         <label for="message">Your Message:</label>
         <textarea id="message" name="message" rows="5" required></textarea>
+        <div class="error-message">Please enter your message</div>
       </div>
 
       <button type="submit">Send Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
@@ -2169,10 +2268,10 @@
       <p>Empowering Africa through secure, scalable systems</p>
       
       <div class="social-icons">
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-github"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com/kaiguatech" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com/company/kaigua-tech-empire" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/kaiguatech" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://instagram.com/kaiguatech" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
       </div>
       
       <div class="footer-links">
@@ -2180,6 +2279,8 @@
         <a href="tel:+254700877033">Call Us</a>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
+        <a href="https://blog.kaiguatech.com" target="_blank">Blog</a>
+        <a href="https://careers.kaiguatech.com" target="_blank">Careers</a>
       </div>
       
       <p class="copyright">© 2025 Kaigua Tech Empire. Built with ♥ and clean code.</p>
@@ -2187,167 +2288,587 @@
   </footer>
 
   <script>
-    // Mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navLinks = document.querySelector('.nav-links');
+    // Modular JavaScript Structure
+    const ModalManager = {
+      init() {
+        this.setupModals();
+        this.setupCloseHandlers();
+      },
       
-      menuToggle.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-      });
-      
-      // Close mobile menu when clicking outside
-      document.addEventListener('click', function(event) {
-        if (!event.target.closest('nav') && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
-        }
-      });
-      
-      // Theme toggle
-      const themeToggle = document.getElementById('theme-toggle');
-      themeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-        const icon = themeToggle.querySelector('i');
-        const text = themeToggle.querySelector('span');
+      setupModals() {
+        // Client portal modal
+        const clientPortalBtn = document.getElementById('client-portal-btn');
+        const clientLoginModal = document.getElementById('client-login-modal');
+        const closeClientModal = document.getElementById('close-client-modal');
         
-        if (document.body.classList.contains('dark-mode')) {
-          icon.className = 'fas fa-sun';
-          text.textContent = 'Light Mode';
-        } else {
-          icon.className = 'fas fa-moon';
-          text.textContent = 'Dark Mode';
-        }
-      });
-      
-      // Chat toggle
-      const chatToggle = document.getElementById('chatToggle');
-      const chatWidget = document.getElementById('chatWidget');
-      
-      chatToggle.addEventListener('click', function() {
-        chatWidget.classList.toggle('active');
-      });
-      
-      // Pricing calculator
-      const calculateBtn = document.getElementById('calculate-quote');
-      const quoteAmount = document.getElementById('quote-amount');
-      
-      calculateBtn.addEventListener('click', function() {
-        const projectType = document.getElementById('project-type').value;
-        const complexity = document.getElementById('complexity').value;
+        clientPortalBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          clientLoginModal.classList.add('active');
+        });
         
-        let basePrice = 0;
-        switch(projectType) {
-          case 'web': basePrice = 5000; break;
-          case 'mobile': basePrice = 8000; break;
-          case 'ai': basePrice = 15000; break;
-          case 'enterprise': basePrice = 25000; break;
-        }
+        closeClientModal.addEventListener('click', function() {
+          clientLoginModal.classList.remove('active');
+        });
         
-        let multiplier = 1;
-        switch(complexity) {
-          case 'simple': multiplier = 1; break;
-          case 'medium': multiplier = 1.5; break;
-          case 'complex': multiplier = 2.5; break;
-        }
+        // Consultation modal
+        const scheduleConsultation = document.getElementById('schedule-consultation');
+        const consultationModal = document.getElementById('consultation-modal');
+        const closeConsultationModal = document.getElementById('close-consultation-modal');
         
-        const total = basePrice * multiplier;
-        quoteAmount.textContent = '$' + total.toLocaleString();
-      });
-      
-      // Add fade-in animation on scroll
-      const fadeElements = document.querySelectorAll('.fade-in');
-      
-      const fadeInOnScroll = function() {
-        fadeElements.forEach(element => {
-          const elementTop = element.getBoundingClientRect().top;
-          const elementVisible = 150;
-          
-          if (elementTop < window.innerHeight - elementVisible) {
-            element.style.opacity = "1";
-            element.style.transform = "translateY(0)";
+        scheduleConsultation.addEventListener('click', function(e) {
+          e.preventDefault();
+          consultationModal.classList.add('active');
+        });
+        
+        closeConsultationModal.addEventListener('click', function() {
+          consultationModal.classList.remove('active');
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+          if (e.target === clientLoginModal) {
+            clientLoginModal.classList.remove('active');
+          }
+          if (e.target === consultationModal) {
+            consultationModal.classList.remove('active');
           }
         });
-      };
+      },
       
-      // Set initial state
-      fadeElements.forEach(element => {
-        element.style.opacity = "0";
-        element.style.transform = "translateY(30px)";
-        element.style.transition = "opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-      });
-      
-      window.addEventListener('scroll', fadeInOnScroll);
-      // Check on load as well
-      fadeInOnScroll();
-      
-      // Demo launch buttons
-      const demoButtons = document.querySelectorAll('.demo-launch');
-      demoButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          // Show loading state
-          const originalText = button.innerHTML;
-          button.innerHTML = '<span class="loading-spinner"></span> Loading Demo...';
-          
-          setTimeout(() => {
-            button.innerHTML = originalText;
-            alert('Demo would launch here! In a real implementation, this would open an interactive demo environment.');
-          }, 1500);
+      setupCloseHandlers() {
+        // Escape key to close modals
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active').forEach(modal => {
+              modal.classList.remove('active');
+            });
+          }
         });
-      });
+      }
+    };
+
+    const ThemeManager = {
+      init() {
+        this.setupThemeToggle();
+        this.loadSavedTheme();
+      },
       
-      // Social proof rotation
-      const proofMessages = [
-        "Client from Kenya just booked a consultation",
-        "Project completed for Nigerian fintech startup",
-        "New security feature deployed for South African bank",
-        "AI system processing 10,000+ requests daily",
-        "Rental platform now managing 500+ properties"
-      ];
+      setupThemeToggle() {
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', function() {
+          document.body.classList.toggle('dark-mode');
+          const icon = themeToggle.querySelector('i');
+          const text = themeToggle.querySelector('span');
+          
+          if (document.body.classList.contains('dark-mode')) {
+            icon.className = 'fas fa-sun';
+            text.textContent = 'Light Mode';
+            localStorage.setItem('theme', 'dark');
+          } else {
+            icon.className = 'fas fa-moon';
+            text.textContent = 'Dark Mode';
+            localStorage.setItem('theme', 'light');
+          }
+        });
+      },
       
-      let currentProof = 0;
-      const proofElement = document.querySelector('.proof-item span');
+      loadSavedTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.body.classList.add('dark-mode');
+          const themeToggle = document.getElementById('theme-toggle');
+          const icon = themeToggle.querySelector('i');
+          const text = themeToggle.querySelector('span');
+          icon.className = 'fas fa-sun';
+          text.textContent = 'Light Mode';
+        }
+      }
+    };
+
+    const NavigationManager = {
+      init() {
+        this.setupMobileMenu();
+        this.setupSmoothScrolling();
+        this.setupDropdowns();
+      },
       
-      setInterval(() => {
-        currentProof = (currentProof + 1) % proofMessages.length;
-        proofElement.textContent = proofMessages[currentProof];
-      }, 4000);
+      setupMobileMenu() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+          if (!event.target.closest('nav') && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+          }
+        });
+      },
       
-      // Form submission
-      const contactForm = document.getElementById('professional-contact');
-      contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const submitButton = this.querySelector('button[type="submit"]');
+      setupSmoothScrolling() {
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            if (this.getAttribute('href') !== '#') {
+              e.preventDefault();
+              const target = document.querySelector(this.getAttribute('href'));
+              if (target) {
+                target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }
+          });
+        });
+        
+        // Internal link handler
+        document.querySelectorAll('.nav-internal').forEach(link => {
+          link.addEventListener('click', function(e) {
+            if (this.getAttribute('href').startsWith('#')) {
+              e.preventDefault();
+              const target = document.querySelector(this.getAttribute('href'));
+              if (target) {
+                target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+              // Close mobile menu if open
+              document.querySelector('.nav-links').classList.remove('active');
+            }
+          });
+        });
+      },
+      
+      setupDropdowns() {
+        // Handle dropdown behavior on mobile
+        if (window.innerWidth <= 768) {
+          document.querySelectorAll('.nav-item').forEach(item => {
+            const link = item.querySelector('.nav-link');
+            link.addEventListener('click', function(e) {
+              if (window.innerWidth <= 768) {
+                e.preventDefault();
+                const dropdown = item.querySelector('.dropdown');
+                if (dropdown) {
+                  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                }
+              }
+            });
+          });
+        }
+      }
+    };
+
+    const FormManager = {
+      init() {
+        this.setupFormValidation();
+        this.setupFormSubmissions();
+      },
+      
+      setupFormValidation() {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+          const inputs = form.querySelectorAll('input, textarea, select');
+          inputs.forEach(input => {
+            input.addEventListener('blur', this.validateField);
+            input.addEventListener('input', this.clearError);
+          });
+        });
+      },
+      
+      validateField(e) {
+        const field = e.target;
+        const formGroup = field.closest('.form-group');
+        let isValid = true;
+        let errorMessage = '';
+        
+        // Clear previous error state
+        formGroup.classList.remove('error');
+        
+        // Required field validation
+        if (field.hasAttribute('required') && !field.value.trim()) {
+          isValid = false;
+          errorMessage = 'This field is required';
+        }
+        
+        // Email validation
+        if (field.type === 'email' && field.value.trim()) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(field.value)) {
+            isValid = false;
+            errorMessage = 'Please enter a valid email address';
+          }
+        }
+        
+        // Show error if invalid
+        if (!isValid) {
+          formGroup.classList.add('error');
+          const errorElement = formGroup.querySelector('.error-message');
+          if (errorElement) {
+            errorElement.textContent = errorMessage;
+          }
+        }
+        
+        return isValid;
+      },
+      
+      clearError(e) {
+        const field = e.target;
+        const formGroup = field.closest('.form-group');
+        formGroup.classList.remove('error');
+      },
+      
+      setupFormSubmissions() {
+        // Contact form
+        const contactForm = document.getElementById('professional-contact');
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (this.validateForm(contactForm)) {
+            this.handleFormSubmission(contactForm, 'Thank you for your message! We will respond within 24 hours.');
+          }
+        });
+        
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletter-form');
+        newsletterForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (this.validateForm(newsletterForm)) {
+            this.handleFormSubmission(newsletterForm, 'Thank you for subscribing to our newsletter!');
+          }
+        });
+        
+        // Client login form
+        const clientLoginForm = document.getElementById('client-login-form');
+        clientLoginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (this.validateForm(clientLoginForm)) {
+            this.handleFormSubmission(clientLoginForm, 'Authentication successful! Redirecting to client portal...', true);
+          }
+        });
+      },
+      
+      validateForm(form) {
+        let isValid = true;
+        const inputs = form.querySelectorAll('input, textarea, select');
+        
+        inputs.forEach(input => {
+          if (!this.validateField({ target: input })) {
+            isValid = false;
+          }
+        });
+        
+        return isValid;
+      },
+      
+      handleFormSubmission(form, successMessage, shouldCloseModal = false) {
+        const submitButton = form.querySelector('button[type="submit"]');
         const originalText = submitButton.innerHTML;
         
         // Show loading state
-        submitButton.innerHTML = '<span class="loading-spinner"></span> Sending...';
+        submitButton.innerHTML = '<span class="loading-spinner"></span> Processing...';
         submitButton.disabled = true;
         
         // Simulate form submission
         setTimeout(() => {
-          submitButton.innerHTML = '<i class="fas fa-check" style="margin-right: 8px;"></i> Message Sent!';
+          submitButton.innerHTML = '<i class="fas fa-check" style="margin-right: 8px;"></i> Success!';
           setTimeout(() => {
             submitButton.innerHTML = originalText;
             submitButton.disabled = false;
-            contactForm.reset();
-          }, 2000);
+            form.reset();
+            alert(successMessage);
+            
+            if (shouldCloseModal) {
+              const modal = form.closest('.modal');
+              if (modal) modal.classList.remove('active');
+            }
+          }, 1500);
         }, 2000);
-      });
+      }
+    };
+
+    const InteractiveFeatures = {
+      init() {
+        this.setupSearch();
+        this.setupPricingCalculator();
+        this.setupDemoLaunches();
+        this.setupProjectDetails();
+        this.setupChat();
+        this.setupSocialProof();
+        this.setupLanguageSwitcher();
+        this.setupAnimations();
+      },
       
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
+      setupSearch() {
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        
+        const performSearch = () => {
+          const query = searchInput.value.trim();
+          if (query) {
+            // In a real implementation, this would search your content
+            alert(`Searching for: "${query}"\n\nIn a real implementation, this would show search results from your website content.`);
+          }
+        };
+        
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            performSearch();
           }
         });
-      });
+      },
+      
+      setupPricingCalculator() {
+        const calculateBtn = document.getElementById('calculate-quote');
+        const quoteAmount = document.getElementById('quote-amount');
+        
+        calculateBtn.addEventListener('click', function() {
+          const projectType = document.getElementById('project-type').value;
+          const complexity = document.getElementById('complexity').value;
+          
+          let basePrice = 0;
+          switch(projectType) {
+            case 'web': basePrice = 5000; break;
+            case 'mobile': basePrice = 8000; break;
+            case 'ai': basePrice = 15000; break;
+            case 'enterprise': basePrice = 25000; break;
+          }
+          
+          let multiplier = 1;
+          switch(complexity) {
+            case 'simple': multiplier = 1; break;
+            case 'medium': multiplier = 1.5; break;
+            case 'complex': multiplier = 2.5; break;
+          }
+          
+          const total = basePrice * multiplier;
+          quoteAmount.textContent = '$' + total.toLocaleString();
+          
+          // Show a modal with the detailed quote
+          setTimeout(() => {
+            alert(`Your project quote: $${total.toLocaleString()}\n\nProject Type: ${projectType}\nComplexity: ${complexity}\n\nThis is an estimate. Contact us for a detailed proposal.`);
+          }, 500);
+        });
+      },
+      
+      setupDemoLaunches() {
+        const demoButtons = document.querySelectorAll('.demo-launch');
+        demoButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            const demoType = this.getAttribute('data-demo');
+            const demoUrls = {
+              'rental': 'https://demo.kaiguatech.com/rental-system',
+              'music': 'https://demo.kaiguatech.com/ai-music',
+              'deployment': 'https://demo.kaiguatech.com/deployment',
+              'calculations': 'https://demo.kaiguatech.com/calculations',
+              'rental-full': 'https://demo.kaiguatech.com/rental-full',
+              'music-full': 'https://demo.kaiguatech.com/music-full',
+              'analytics-full': 'https://demo.kaiguatech.com/analytics'
+            };
+            
+            // Show loading state
+            const originalText = button.innerHTML;
+            button.innerHTML = '<span class="loading-spinner"></span> Loading...';
+            
+            setTimeout(() => {
+              button.innerHTML = originalText;
+              // In a real implementation, you would redirect to the demo
+              alert(`Launching ${demoType} demo...\n\nIn a real implementation, this would open: ${demoUrls[demoType]}`);
+            }, 1500);
+          });
+        });
+      },
+      
+      setupProjectDetails() {
+        const projectButtons = document.querySelectorAll('.visit-button');
+        projectButtons.forEach(button => {
+          button.addEventListener('click', function(e) {
+            if (!this.hasAttribute('onclick')) {
+              e.preventDefault();
+              const project = this.getAttribute('data-project');
+              const projectDetails = {
+                'rental-portal': 'KAIGUA Rentals Portal - A comprehensive property management system',
+                'calculator': 'Overdue Rent Calculator - Automated detection and penalty system',
+                'dashboard': 'Admin Dashboard - Centralized management interface'
+              };
+              
+              alert(`Project Details: ${projectDetails[project]}\n\nIn a real implementation, this would show a detailed project page.`);
+            }
+          });
+        });
+      },
+      
+      setupChat() {
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWidget = document.getElementById('chatWidget');
+        const chatInput = document.getElementById('chat-input');
+        const sendChatBtn = document.getElementById('send-chat-btn');
+        const chatContent = document.getElementById('chat-content');
+        
+        chatToggle.addEventListener('click', function() {
+          chatWidget.classList.toggle('active');
+        });
+        
+        const sendChatMessage = () => {
+          const message = chatInput.value.trim();
+          if (message) {
+            // Add user message
+            this.addChatMessage(message, 'user');
+            chatInput.value = '';
+            
+            // Simulate bot response
+            setTimeout(() => {
+              const responses = [
+                "I understand you're interested in " + message + ". Let me connect you with our specialist.",
+                "Great question about " + message + "! Our team can provide detailed information about this.",
+                "For " + message + ", we have several solutions available. Would you like me to schedule a call?",
+                "I've noted your interest in " + message + ". Our sales team will contact you shortly.",
+                "We have extensive experience with " + message + ". Let me share some case studies with you."
+              ];
+              const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+              this.addChatMessage(randomResponse, 'bot');
+            }, 1000);
+          }
+        };
+        
+        sendChatBtn.addEventListener('click', sendChatMessage);
+        chatInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            sendChatMessage();
+          }
+        });
+        
+        this.addChatMessage = (message, sender) => {
+          const messageDiv = document.createElement('div');
+          messageDiv.style.cssText = sender === 'user' ? 
+            "background: var(--gradient-primary); color: white; padding: 15px; border-radius: 18px; margin-bottom: 15px; max-width: 80%; margin-left: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" :
+            "background: white; padding: 15px; border-radius: 18px; margin-bottom: 15px; max-width: 80%; box-shadow: 0 2px 10px rgba(0,0,0,0.1);";
+          
+          messageDiv.innerHTML = `<p style="margin: 0; font-weight: 500;">${message}</p>`;
+          chatContent.appendChild(messageDiv);
+          chatContent.scrollTop = chatContent.scrollHeight;
+        };
+      },
+      
+      setupSocialProof() {
+        const proofMessages = [
+          "Client from Kenya just booked a consultation",
+          "Project completed for Nigerian fintech startup",
+          "New security feature deployed for South African bank",
+          "AI system processing 10,000+ requests daily",
+          "Rental platform now managing 500+ properties"
+        ];
+        
+        let currentProof = 0;
+        const proofElement = document.getElementById('proof-text');
+        
+        setInterval(() => {
+          currentProof = (currentProof + 1) % proofMessages.length;
+          proofElement.textContent = proofMessages[currentProof];
+        }, 4000);
+      },
+      
+      setupLanguageSwitcher() {
+        const languageSelect = document.getElementById('language-select');
+        languageSelect.addEventListener('change', function() {
+          const selectedLanguage = this.value;
+          // In a real implementation, this would change the site language
+          alert(`Language changed to: ${this.options[this.selectedIndex].text}\n\nIn a real implementation, this would trigger a language switch.`);
+        });
+      },
+      
+      setupAnimations() {
+        // Add fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+          fadeElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+              element.style.opacity = "1";
+              element.style.transform = "translateY(0)";
+            }
+          });
+        };
+        
+        // Set initial state
+        fadeElements.forEach(element => {
+          element.style.opacity = "0";
+          element.style.transform = "translateY(30px)";
+          element.style.transition = "opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+        });
+        
+        // Debounce scroll event for better performance
+        const debounce = (func, wait) => {
+          let timeout;
+          return function executedFunction(...args) {
+            const later = () => {
+              clearTimeout(timeout);
+              func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+          };
+        };
+        
+        window.addEventListener('scroll', debounce(fadeInOnScroll, 10));
+        // Check on load as well
+        fadeInOnScroll();
+        
+        // Add intersection observer for more advanced animations
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+              }
+            });
+          });
+          
+          document.querySelectorAll('.will-change').forEach(el => observer.observe(el));
+        }
+      }
+    };
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        ModalManager.init();
+        ThemeManager.init();
+        NavigationManager.init();
+        FormManager.init();
+        InteractiveFeatures.init();
+        
+        // Add performance monitoring
+        if ('performance' in window) {
+          window.addEventListener('load', () => {
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            console.log(`Page load time: ${loadTime}ms`);
+          });
+        }
+      } catch (error) {
+        console.error('Application initialization error:', error);
+        // Show user-friendly error message
+        const errorDiv = document.createElement('div');
+        errorDiv.style.cssText = 'background: #f8d7da; color: #721c24; padding: 15px; margin: 20px; border-radius: 8px; text-align: center;';
+        errorDiv.innerHTML = '<p>We encountered an issue loading the page. Please refresh or try again later.</p>';
+        document.body.prepend(errorDiv);
+      }
     });
+
+    // Service Worker Registration (for future PWA implementation)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // In a real implementation, you would register your service worker here
+        // navigator.serviceWorker.register('/sw.js');
+      });
+    }
   </script>
 
 </body>
