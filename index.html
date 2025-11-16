@@ -329,6 +329,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
     }
 
     .logo-container {
@@ -476,9 +477,10 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* Navigation with Dropdown */
+    /* Navigation with Dropdown - FIXED */
     nav {
       position: relative;
+      z-index: 1002; /* Higher z-index to ensure dropdowns appear above everything */
     }
 
     .nav-links {
@@ -528,7 +530,7 @@
       width: 70%;
     }
 
-    /* Dropdown Styles */
+    /* Dropdown Styles - FIXED */
     .dropdown {
       position: absolute;
       top: 100%;
@@ -541,7 +543,7 @@
       visibility: hidden;
       transform: translateY(15px);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 100;
+      z-index: 1003; /* Higher than nav */
       padding: 25px;
       border: 1px solid rgba(255,255,255,0.2);
     }
@@ -1283,12 +1285,13 @@
       box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
     }
 
-    /* Chat Widget */
+    /* Enhanced Chat Widget - AI Chatbot */
     .chat-widget {
       position: fixed;
       bottom: 30px;
       right: 30px;
       width: 380px;
+      height: 500px;
       background: var(--card-bg);
       color: var(--card-text);
       border-radius: 20px;
@@ -1297,10 +1300,11 @@
       display: none;
       border: 1px solid rgba(255,255,255,0.3);
       overflow: hidden;
+      flex-direction: column;
     }
 
     .chat-widget.active {
-      display: block;
+      display: flex;
       animation: chatSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -1341,6 +1345,185 @@
     .chat-toggle:hover {
       transform: scale(1.1);
       box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+    }
+
+    .chat-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #f8f9fa;
+    }
+
+    .chat-message {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .bot-message {
+      background: white;
+      align-self: flex-start;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .user-message {
+      background: var(--gradient-primary);
+      color: white;
+      align-self: flex-end;
+      box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+    }
+
+    .chat-input-container {
+      padding: 20px;
+      border-top: 1px solid #e0e0e0;
+      background: white;
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .chat-input:focus {
+      border-color: var(--main-color);
+    }
+
+    .send-chat-btn {
+      background: var(--main-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .send-chat-btn:hover {
+      background: var(--accent-color);
+    }
+
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .quick-reply {
+      background: rgba(92, 107, 192, 0.1);
+      color: var(--main-color);
+      border: 1px solid rgba(92, 107, 192, 0.2);
+      padding: 8px 12px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .quick-reply:hover {
+      background: rgba(92, 107, 192, 0.2);
+    }
+
+    /* Reception System */
+    .reception-system {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--card-shadow);
+      margin: 50px 0;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .reception-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .reception-tab {
+      background: none;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: var(--transition);
+      border-bottom: 3px solid transparent;
+    }
+
+    .reception-tab.active {
+      color: var(--main-color);
+      border-bottom-color: var(--main-color);
+    }
+
+    .reception-content {
+      display: none;
+    }
+
+    .reception-content.active {
+      display: block;
+    }
+
+    .ticket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .ticket-item {
+      background: var(--light-gray);
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .ticket-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .ticket-info h4 {
+      color: var(--main-color);
+      margin-bottom: 5px;
+    }
+
+    .ticket-status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .status-open {
+      background: rgba(255, 152, 0, 0.1);
+      color: #FF9800;
+    }
+
+    .status-in-progress {
+      background: rgba(33, 150, 243, 0.1);
+      color: #2196F3;
+    }
+
+    .status-resolved {
+      background: rgba(76, 175, 80, 0.1);
+      color: #4CAF50;
     }
 
     /* Newsletter */
@@ -1817,6 +2000,7 @@
         padding: 25px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         border-radius: 0 0 20px 20px;
+        z-index: 1002;
       }
       
       .nav-links.active {
@@ -1972,6 +2156,13 @@
       .toast {
         max-width: 280px;
         padding: 12px 16px;
+      }
+
+      .chat-widget {
+        width: calc(100vw - 20px);
+        right: 10px;
+        bottom: 80px;
+        height: 450px;
       }
     }
 
@@ -2205,22 +2396,25 @@
     <i class="fas fa-comments"></i>
   </div>
 
-  <!-- Chat Widget -->
+  <!-- Enhanced Chat Widget - AI Chatbot -->
   <div class="chat-widget" id="chatWidget">
     <div class="chat-header">
-      <h4>Tech Support</h4>
+      <h4>Kaigua AI Assistant</h4>
       <span class="status online">Online</span>
     </div>
-    <div class="chat-content" id="chat-content" style="padding: 25px; height: 320px; overflow-y: auto; background: #f8f9fa;">
-      <div class="chat-message" style="background: white; padding: 15px; border-radius: 18px; margin-bottom: 15px; max-width: 80%; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-        <p style="margin: 0; font-weight: 500;">Hello! How can we help you today?</p>
+    <div class="chat-content" id="chat-content">
+      <div class="chat-message bot-message">
+        <p>Hello! I'm Kaigua AI Assistant. How can I help you today?</p>
+        <div class="quick-replies">
+          <div class="quick-reply" data-reply="services">Our Services</div>
+          <div class="quick-reply" data-reply="pricing">Pricing Information</div>
+          <div class="quick-reply" data-reply="support">Technical Support</div>
+        </div>
       </div>
     </div>
-    <div style="padding: 20px; border-top: 1px solid #e0e0e0; background: white;">
-      <div style="display: flex; gap: 10px;">
-        <input type="text" id="chat-input" placeholder="Type your message..." style="flex: 1; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 25px; font-size: 0.95rem;">
-        <button id="send-chat-btn" style="background: var(--main-color); color: white; border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; font-weight: 600;">Send</button>
-      </div>
+    <div class="chat-input-container">
+      <input type="text" class="chat-input" id="chat-input" placeholder="Type your message...">
+      <button class="send-chat-btn" id="send-chat-btn">Send</button>
     </div>
   </div>
 
@@ -2293,6 +2487,91 @@
         <h4>Response Time</h4>
         <div class="metric-value">< 2h</div>
         <p>Support response</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reception System -->
+  <section id="reception">
+    <h2>Customer Support Center</h2>
+    <div class="reception-system fade-in">
+      <div class="reception-tabs">
+        <button class="reception-tab active" data-tab="tickets">Support Tickets</button>
+        <button class="reception-tab" data-tab="faq">FAQ</button>
+        <button class="reception-tab" data-tab="resources">Resources</button>
+      </div>
+      
+      <div class="reception-content active" id="tickets-content">
+        <h3>Recent Support Tickets</h3>
+        <div class="ticket-list">
+          <div class="ticket-item">
+            <div class="ticket-info">
+              <h4>Rental System Integration</h4>
+              <p>Client: Safaricom Ltd • Created: 2 hours ago</p>
+            </div>
+            <span class="ticket-status status-in-progress">In Progress</span>
+          </div>
+          <div class="ticket-item">
+            <div class="ticket-info">
+              <h4>API Documentation Access</h4>
+              <p>Client: Equity Bank • Created: 5 hours ago</p>
+            </div>
+            <span class="ticket-status status-open">Open</span>
+          </div>
+          <div class="ticket-item">
+            <div class="ticket-info">
+              <h4>Payment Gateway Issue</h4>
+              <p>Client: M-Pesa • Created: 1 day ago</p>
+            </div>
+            <span class="ticket-status status-resolved">Resolved</span>
+          </div>
+        </div>
+        <button class="cta-button" style="margin-top: 20px;">Create New Ticket</button>
+      </div>
+      
+      <div class="reception-content" id="faq-content">
+        <h3>Frequently Asked Questions</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h3><i class="fas fa-cog"></i> System Requirements</h3>
+            <p>What are the minimum system requirements for your solutions?</p>
+            <button class="demo-launch">View Answer</button>
+          </div>
+          <div class="card">
+            <h3><i class="fas fa-shield-alt"></i> Security Features</h3>
+            <p>What security measures do you implement in your systems?</p>
+            <button class="demo-launch">View Answer</button>
+          </div>
+          <div class="card">
+            <h3><i class="fas fa-clock"></i> Implementation Timeline</h3>
+            <p>How long does it typically take to implement your solutions?</p>
+            <button class="demo-launch">View Answer</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="reception-content" id="resources-content">
+        <h3>Support Resources</h3>
+        <div class="resource-grid">
+          <div class="resource-card">
+            <i class="fas fa-book"></i>
+            <h4>Documentation</h4>
+            <p>Complete technical documentation for all our platforms</p>
+            <a href="#" class="download-btn">Access Docs</a>
+          </div>
+          <div class="resource-card">
+            <i class="fas fa-video"></i>
+            <h4>Video Tutorials</h4>
+            <p>Step-by-step implementation guides and tutorials</p>
+            <a href="#" class="watch-btn">Watch Videos</a>
+          </div>
+          <div class="resource-card">
+            <i class="fas fa-headset"></i>
+            <h4>Live Support</h4>
+            <p>24/7 technical support for enterprise clients</p>
+            <a href="#" class="download-btn">Contact Support</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2515,798 +2794,713 @@
         <i class="fas fa-envelope"></i> Empire Email
       </a>
       <a href="tel:+254700877033" class="contact-link">
-        <i class="fas fa-phone-alt"></i> Call Kaigua Tech Empire
-      </a>
+        <i class="fas fa-phone-alt"></i> 
+              </a>
       <a href="https://wa.me/254700877033?text=Hi%20Kaigua%20Tech%20Empire,%20I%20would%20like%20to%20learn%20more%20about%20your%20services" 
          class="contact-link whatsapp-contact" target="_blank">
-        <i class="fab fa-whatsapp"></i> WhatsApp Us
+        <i class="fab fa-whatsapp"></i> WhatsApp
       </a>
-      <a href="#consultation" class="contact-link" id="schedule-consultation">
-        <i class="fas fa-calendar-alt"></i> Schedule Consultation
+      <a href="https://linkedin.com/company/kaigua-tech-empire" class="contact-link" target="_blank">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="https://github.com/kaiguatech" class="contact-link" target="_blank">
+        <i class="fab fa-github"></i> GitHub
       </a>
     </div>
 
-    <form id="professional-contact">
+    <form id="contact-form">
       <div class="form-group">
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" required />
-        <div class="error-message">Please enter your name</div>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+        <div class="error-message">Please enter your full name</div>
       </div>
       
       <div class="form-group">
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="email" required />
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
         <div class="error-message">Please enter a valid email address</div>
       </div>
-
+      
       <div class="form-group">
-        <label for="service-interest">Service Interest</label>
-        <select id="service-interest" name="service-interest">
-          <option value="">Select a Service</option>
-          <option value="rental-systems">Secure Rental Systems</option>
-          <option value="ai-solutions">AI Solutions</option>
-          <option value="cybersecurity">Cybersecurity</option>
-          <option value="web-development">Web Development</option>
-          <option value="consultation">Technical Consultation</option>
-        </select>
-        <div class="error-message">Please select a service interest</div>
+        <label for="company">Company (Optional)</label>
+        <input type="text" id="company" name="company">
       </div>
       
       <div class="form-group">
-        <label for="message">Your Message:</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-        <div class="error-message">Please enter your message</div>
+        <label for="service">Service Interested In</label>
+        <select id="service" name="service">
+          <option value="">Select a service</option>
+          <option value="rental">Rental Systems</option>
+          <option value="ai">AI Solutions</option>
+          <option value="deployment">Deployment Automation</option>
+          <option value="calculations">Calculation Engine</option>
+          <option value="consultation">Technical Consultation</option>
+          <option value="other">Other</option>
+        </select>
       </div>
-
-      <button type="submit">Send Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
+      
+      <div class="form-group">
+        <label for="budget">Project Budget (USD)</label>
+        <select id="budget" name="budget">
+          <option value="">Select budget range</option>
+          <option value="1k-5k">$1,000 - $5,000</option>
+          <option value="5k-15k">$5,000 - $15,000</option>
+          <option value="15k-50k">$15,000 - $50,000</option>
+          <option value="50k+">$50,000+</option>
+          <option value="undecided">Not sure yet</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="message">Project Details</label>
+        <textarea id="message" name="message" rows="6" placeholder="Tell us about your project requirements, timeline, and any specific challenges you're facing..." required></textarea>
+        <div class="error-message">Please provide project details</div>
+      </div>
+      
+      <button type="submit">
+        <span class="submit-text">Send Message</span>
+        <span class="loading-spinner" style="display: none;"></span>
+      </button>
     </form>
   </section>
 
   <footer>
     <div class="footer-content">
-      <h3>Kaigua Tech Empire</h3>
-      <p>Empowering Africa through secure, scalable systems</p>
-      
-      <div class="social-icons">
-        <a href="https://twitter.com/kaiguatech" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="https://linkedin.com/company/kaigua-tech-empire" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://github.com/kaiguatech" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://instagram.com/kaiguatech" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/254700877033?text=Hi%20Kaigua%20Tech%20Empire,%20I%20would%20like%20to%20learn%20more%20about%20your%20services" 
-           target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <div class="logo-container" style="justify-content: center; margin-bottom: 30px;">
+        <div class="logo">
+          <i class="fas fa-empire"></i>
+        </div>
+        <div class="logo-text">
+          <h1>Kaigua Tech Empire</h1>
+          <p class="tagline">Empowering Africa through secure, scalable systems</p>
+        </div>
       </div>
       
       <div class="footer-links">
-        <a href="mailto:kaiguajohn4@gmail.com">Empire Email</a>
-        <a href="tel:+254700877033">Call Us</a>
-        <a href="#about">About</a>
+        <a href="#about">About Us</a>
+        <a href="#solutions">Solutions</a>
         <a href="#projects">Projects</a>
-        <a href="https://blog.kaiguatech.com" target="_blank">Blog</a>
-        <a href="https://careers.kaiguatech.com" target="_blank">Careers</a>
+        <a href="#contact">Contact</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#security">Security</a>
+        <a href="#careers">Careers</a>
       </div>
       
-      <p class="copyright">© 2025 Kaigua Tech Empire. Built with ♥ and clean code.</p>
+      <div class="social-icons">
+        <a href="https://twitter.com/kaiguatech" aria-label="Twitter" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://linkedin.com/company/kaigua-tech-empire" aria-label="LinkedIn" target="_blank">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://github.com/kaiguatech" aria-label="GitHub" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://youtube.com/@kaiguatech" aria-label="YouTube" target="_blank">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://medium.com/@kaiguatech" aria-label="Medium" target="_blank">
+          <i class="fab fa-medium-m"></i>
+        </a>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2024 Kaigua Tech Empire. All rights reserved. | Building the future of African technology</p>
+        <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.8;">
+          Nairobi, Kenya | +254 700 877 033 | kaiguajohn4@gmail.com
+        </p>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Enhanced Features Manager
-    const EnhancedFeatures = {
-      init() {
-        this.setupWhatsApp();
-        this.setupBackToTop();
-        this.setupToastNotifications();
-        this.setupCookieConsent();
-        this.setupReadingProgress();
-        this.setupOfflineDetection();
-        this.setupNavigation();
-      },
+    // DOM Content Loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize all components
+      initTheme();
+      initNavigation();
+      initScrollEffects();
+      initForms();
+      initChat();
+      initModals();
+      initCalculators();
+      showCookieConsent();
       
-      setupWhatsApp() {
-        // WhatsApp functionality is handled by the link attributes
-        console.log('WhatsApp integration ready - Number: 254700877033');
-      },
+      // Add fade-in animation to elements on scroll
+      initScrollAnimations();
+    });
+
+    // Theme Management
+    function initTheme() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = themeToggle.querySelector('i');
+      const themeText = themeToggle.querySelector('span');
       
-      setupBackToTop() {
-        const backToTop = document.getElementById('back-to-top');
+      // Check for saved theme or prefer-color-scheme
+      const savedTheme = localStorage.getItem('theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun';
+        themeText.textContent = 'Light Mode';
+      }
+      
+      themeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
         
-        window.addEventListener('scroll', () => {
-          if (window.pageYOffset > 300) {
-            backToTop.classList.add('show');
-          } else {
-            backToTop.classList.remove('show');
-          }
-        });
-        
-        backToTop.addEventListener('click', () => {
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+        if (document.body.classList.contains('dark-mode')) {
+          localStorage.setItem('theme', 'dark');
+          themeIcon.className = 'fas fa-sun';
+          themeText.textContent = 'Light Mode';
+          showToast('Dark mode enabled', 'success');
+        } else {
+          localStorage.setItem('theme', 'light');
+          themeIcon.className = 'fas fa-moon';
+          themeText.textContent = 'Dark Mode';
+          showToast('Light mode enabled', 'success');
+        }
+      });
+    }
+
+    // Navigation Management
+    function initNavigation() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      const dropdowns = document.querySelectorAll('.dropdown');
+      
+      // Mobile menu toggle
+      menuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        this.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+      });
+      
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!event.target.closest('.nav-item')) {
+          dropdowns.forEach(dropdown => {
+            dropdown.style.display = 'none';
+          });
+        }
+      });
+      
+      // Mobile dropdown handling
+      if (window.innerWidth <= 768) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', function(e) {
+            if (this.parentElement.querySelector('.dropdown')) {
+              e.preventDefault();
+              const dropdown = this.parentElement.querySelector('.dropdown');
+              dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            }
           });
         });
-      },
+      }
+    }
+
+    // Scroll Effects
+    function initScrollEffects() {
+      const backToTop = document.getElementById('back-to-top');
+      const readingProgress = document.getElementById('reading-progress');
       
-      setupToastNotifications() {
-        this.toastContainer = document.getElementById('toast-container');
-        
-        // Example: Show welcome toast
-        setTimeout(() => {
-          this.showToast('Welcome to Kaigua Tech Empire!', 'success');
-        }, 1000);
-      },
-      
-      showToast(message, type = 'info', duration = 5000) {
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        
-        const icons = {
-          success: 'fas fa-check-circle',
-          warning: 'fas fa-exclamation-triangle',
-          error: 'fas fa-times-circle',
-          info: 'fas fa-info-circle'
-        };
-        
-        toast.innerHTML = `
-          <i class="${icons[type] || icons.info}"></i>
-          <span>${message}</span>
-        `;
-        
-        this.toastContainer.appendChild(toast);
-        
-        // Animate in
-        setTimeout(() => toast.classList.add('show'), 100);
-        
-        // Auto remove after duration
-        setTimeout(() => {
-          toast.classList.remove('show');
-          setTimeout(() => {
-            if (toast.parentNode) {
-              toast.parentNode.removeChild(toast);
-            }
-          }, 300);
-        }, duration);
-      },
-      
-      setupCookieConsent() {
-        const cookieConsent = document.getElementById('cookie-consent');
-        const acceptCookies = document.getElementById('accept-cookies');
-        const declineCookies = document.getElementById('decline-cookies');
-        
-        // Check if user has already made a choice
-        if (!localStorage.getItem('cookiesAccepted')) {
-          setTimeout(() => {
-            cookieConsent.classList.add('show');
-          }, 2000);
+      // Back to top button
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTop.classList.add('show');
+        } else {
+          backToTop.classList.remove('show');
         }
         
-        acceptCookies.addEventListener('click', () => {
-          localStorage.setItem('cookiesAccepted', 'true');
-          cookieConsent.classList.remove('show');
-          this.showToast('Cookie preferences saved', 'success');
-        });
-        
-        declineCookies.addEventListener('click', () => {
-          localStorage.setItem('cookiesAccepted', 'false');
-          cookieConsent.classList.remove('show');
-          this.showToast('Cookie preferences saved', 'info');
-        });
-      },
+        // Reading progress
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset;
+        const progress = (scrollTop / documentHeight) * 100;
+        readingProgress.style.width = progress + '%';
+      });
       
-      setupReadingProgress() {
-        const progressBar = document.getElementById('reading-progress');
-        
-        window.addEventListener('scroll', () => {
-          const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const scrolled = (window.pageYOffset / windowHeight) * 100;
-          progressBar.style.width = scrolled + '%';
-        });
-      },
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Form Handling
+    function initForms() {
+      const contactForm = document.getElementById('contact-form');
+      const newsletterForm = document.getElementById('newsletter-form');
+      const clientLoginForm = document.getElementById('client-login-form');
       
-      setupOfflineDetection() {
-        window.addEventListener('online', () => {
-          this.showToast('Connection restored', 'success');
+      // Contact form
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          if (validateForm(this)) {
+            submitForm(this, 'Thank you for your message! We will get back to you within 24 hours.');
+          }
         });
-        
-        window.addEventListener('offline', () => {
-          this.showToast('You are currently offline', 'warning');
-        });
-      },
+      }
       
-      setupNavigation() {
-        // Fix navigation layout issues
-        const nav = document.querySelector('nav');
-        const headerControls = document.querySelector('.header-controls');
+      // Newsletter form
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const email = document.getElementById('newsletter-email').value;
+          if (validateEmail(email)) {
+            showToast('Successfully subscribed to our newsletter!', 'success');
+            this.reset();
+          } else {
+            showToast('Please enter a valid email address', 'error');
+          }
+        });
+      }
+      
+      // Client login form
+      if (clientLoginForm) {
+        clientLoginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          if (validateForm(this)) {
+            // Simulate login process
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span> Authenticating...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+              showToast('Login successful! Redirecting to portal...', 'success');
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+              document.getElementById('close-client-modal').click();
+            }, 2000);
+          }
+        });
+      }
+    }
+
+    // Form Validation
+    function validateForm(form) {
+      let isValid = true;
+      const requiredFields = form.querySelectorAll('[required]');
+      
+      requiredFields.forEach(field => {
+        const formGroup = field.closest('.form-group');
+        if (!field.value.trim()) {
+          formGroup.classList.add('error');
+          isValid = false;
+        } else {
+          formGroup.classList.remove('error');
+          
+          // Email validation
+          if (field.type === 'email' && !validateEmail(field.value)) {
+            formGroup.classList.add('error');
+            isValid = false;
+          }
+        }
+      });
+      
+      return isValid;
+    }
+    
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+    
+    function submitForm(form, successMessage) {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.querySelector('.submit-text').textContent;
+      
+      // Show loading state
+      submitBtn.querySelector('.submit-text').style.display = 'none';
+      submitBtn.querySelector('.loading-spinner').style.display = 'inline-block';
+      submitBtn.disabled = true;
+      
+      // Simulate form submission
+      setTimeout(() => {
+        showToast(successMessage, 'success');
+        form.reset();
         
-        // Ensure proper spacing and alignment
-        if (window.innerWidth > 1024) {
-          nav.style.flex = '1';
-          nav.style.display = 'flex';
-          nav.style.justifyContent = 'center';
+        // Reset button
+        submitBtn.querySelector('.submit-text').style.display = 'inline';
+        submitBtn.querySelector('.loading-spinner').style.display = 'none';
+        submitBtn.disabled = false;
+      }, 2000);
+    }
+
+    // Chat System
+    function initChat() {
+      const chatToggle = document.getElementById('chatToggle');
+      const chatWidget = document.getElementById('chatWidget');
+      const chatInput = document.getElementById('chat-input');
+      const sendChatBtn = document.getElementById('send-chat-btn');
+      const chatContent = document.getElementById('chat-content');
+      
+      let isChatOpen = false;
+      
+      chatToggle.addEventListener('click', function() {
+        isChatOpen = !isChatOpen;
+        if (isChatOpen) {
+          chatWidget.classList.add('active');
+          this.style.transform = 'scale(0.9)';
+          chatInput.focus();
+        } else {
+          chatWidget.classList.remove('active');
+          this.style.transform = 'scale(1)';
+        }
+      });
+      
+      // Send message function
+      function sendMessage() {
+        const message = chatInput.value.trim();
+        if (message) {
+          // Add user message
+          addMessage(message, 'user');
+          chatInput.value = '';
+          
+          // Simulate AI response
+          setTimeout(() => {
+            const response = generateAIResponse(message);
+            addMessage(response, 'bot');
+          }, 1000);
         }
       }
-    };
-
-    // Modular JavaScript Structure
-    const ModalManager = {
-      init() {
-        this.setupModals();
-        this.setupCloseHandlers();
-      },
       
-      setupModals() {
-        // Client portal modal
-        const clientPortalBtn = document.getElementById('client-portal-btn');
-        const clientLoginModal = document.getElementById('client-login-modal');
-        const closeClientModal = document.getElementById('close-client-modal');
-        
+      sendChatBtn.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
+      });
+      
+      // Quick replies
+      document.querySelectorAll('.quick-reply').forEach(reply => {
+        reply.addEventListener('click', function() {
+          const replyText = this.getAttribute('data-reply');
+          chatInput.value = `Tell me about ${replyText}`;
+          sendMessage();
+        });
+      });
+    }
+    
+    function addMessage(text, sender) {
+      const chatContent = document.getElementById('chat-content');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat-message ${sender}-message`;
+      messageDiv.innerHTML = `<p>${text}</p>`;
+      chatContent.appendChild(messageDiv);
+      chatContent.scrollTop = chatContent.scrollHeight;
+    }
+    
+    function generateAIResponse(message) {
+      const lowerMessage = message.toLowerCase();
+      
+      if (lowerMessage.includes('service') || lowerMessage.includes('what do you do')) {
+        return "We specialize in secure backend systems, AI solutions, deployment automation, and complex calculation engines. Our solutions are tailored for African businesses looking to scale securely.";
+      } else if (lowerMessage.includes('pricing') || lowerMessage.includes('cost') || lowerMessage.includes('price')) {
+        return "Our pricing depends on project complexity and requirements. Web apps start from $5,000, mobile apps from $8,000, and enterprise AI solutions from $15,000. Use our quote calculator for an accurate estimate!";
+      } else if (lowerMessage.includes('support') || lowerMessage.includes('help')) {
+        return "We provide 24/7 technical support for enterprise clients. For immediate assistance, call +254 700 877 033 or email kaiguajohn4@gmail.com. You can also create a support ticket in our customer portal.";
+      } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+        return "Hello! I'm Kaigua AI Assistant. How can I help you with our technology solutions today?";
+      } else {
+        return "Thank you for your message! For detailed information about our services, pricing, or technical support, please let me know what specific area you're interested in, or contact our team directly at +254 700 877 033.";
+      }
+    }
+
+    // Modal Management
+    function initModals() {
+      // Client portal modal
+      const clientPortalBtn = document.getElementById('client-portal-btn');
+      const clientModal = document.getElementById('client-login-modal');
+      const closeClientModal = document.getElementById('close-client-modal');
+      
+      if (clientPortalBtn) {
         clientPortalBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          clientLoginModal.classList.add('active');
+          clientModal.classList.add('active');
         });
-        
+      }
+      
+      if (closeClientModal) {
         closeClientModal.addEventListener('click', function() {
-          clientLoginModal.classList.remove('active');
+          clientModal.classList.remove('active');
         });
-        
-        // Consultation modal
-        const scheduleConsultation = document.getElementById('schedule-consultation');
-        const consultationModal = document.getElementById('consultation-modal');
-        const closeConsultationModal = document.getElementById('close-consultation-modal');
-        
-        scheduleConsultation.addEventListener('click', function(e) {
+      }
+      
+      // Consultation modal
+      const consultationLinks = document.querySelectorAll('a[href="#consultation"]');
+      const consultationModal = document.getElementById('consultation-modal');
+      const closeConsultationModal = document.getElementById('close-consultation-modal');
+      
+      consultationLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
           e.preventDefault();
           consultationModal.classList.add('active');
         });
-        
+      });
+      
+      if (closeConsultationModal) {
         closeConsultationModal.addEventListener('click', function() {
           consultationModal.classList.remove('active');
         });
-        
-        // Close modals when clicking outside
-        window.addEventListener('click', function(e) {
-          if (e.target === clientLoginModal) {
-            clientLoginModal.classList.remove('active');
-          }
-          if (e.target === consultationModal) {
-            consultationModal.classList.remove('active');
-          }
-        });
-      },
-      
-      setupCloseHandlers() {
-        // Escape key to close modals
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') {
-            document.querySelectorAll('.modal.active').forEach(modal => {
-              modal.classList.remove('active');
-            });
-          }
-        });
       }
-    };
-
-    const ThemeManager = {
-      init() {
-        this.setupThemeToggle();
-        this.loadSavedTheme();
-      },
       
-      setupThemeToggle() {
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', function() {
-          document.body.classList.toggle('dark-mode');
-          const icon = themeToggle.querySelector('i');
-          const text = themeToggle.querySelector('span');
-          
-          if (document.body.classList.contains('dark-mode')) {
-            icon.className = 'fas fa-sun';
-            text.textContent = 'Light Mode';
-            localStorage.setItem('theme', 'dark');
-          } else {
-            icon.className = 'fas fa-moon';
-            text.textContent = 'Dark Mode';
-            localStorage.setItem('theme', 'light');
-          }
-        });
-      },
-      
-      loadSavedTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-          document.body.classList.add('dark-mode');
-          const themeToggle = document.getElementById('theme-toggle');
-          const icon = themeToggle.querySelector('i');
-          const text = themeToggle.querySelector('span');
-          icon.className = 'fas fa-sun';
-          text.textContent = 'Light Mode';
+      // Close modals on outside click
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+          e.target.classList.remove('active');
         }
-      }
-    };
-
-    const NavigationManager = {
-      init() {
-        this.setupMobileMenu();
-        this.setupSmoothScrolling();
-        this.setupDropdowns();
-      },
-      
-      setupMobileMenu() {
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        
-        menuToggle.addEventListener('click', function() {
-          navLinks.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!event.target.closest('nav') && navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-          }
-        });
-      },
-      
-      setupSmoothScrolling() {
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function (e) {
-            if (this.getAttribute('href') !== '#') {
-              e.preventDefault();
-              const target = document.querySelector(this.getAttribute('href'));
-              if (target) {
-                target.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-              }
-            }
-          });
-        });
-        
-        // Internal link handler
-        document.querySelectorAll('.nav-internal').forEach(link => {
-          link.addEventListener('click', function(e) {
-            if (this.getAttribute('href').startsWith('#')) {
-              e.preventDefault();
-              const target = document.querySelector(this.getAttribute('href'));
-              if (target) {
-                target.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-              }
-              // Close mobile menu if open
-              document.querySelector('.nav-links').classList.remove('active');
-            }
-          });
-        });
-      },
-      
-      setupDropdowns() {
-        // Handle dropdown behavior on mobile
-        if (window.innerWidth <= 768) {
-          document.querySelectorAll('.nav-item').forEach(item => {
-            const link = item.querySelector('.nav-link');
-            link.addEventListener('click', function(e) {
-              if (window.innerWidth <= 768) {
-                e.preventDefault();
-                const dropdown = item.querySelector('.dropdown');
-                if (dropdown) {
-                  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-                }
-              }
-            });
-          });
-        }
-      }
-    };
-
-    const FormManager = {
-      init() {
-        this.setupFormValidation();
-        this.setupFormSubmissions();
-      },
-      
-      setupFormValidation() {
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-          const inputs = form.querySelectorAll('input, textarea, select');
-          inputs.forEach(input => {
-            input.addEventListener('blur', this.validateField);
-            input.addEventListener('input', this.clearError);
-          });
-        });
-      },
-      
-      validateField(e) {
-        const field = e.target;
-        const formGroup = field.closest('.form-group');
-        let isValid = true;
-        let errorMessage = '';
-        
-        // Clear previous error state
-        formGroup.classList.remove('error');
-        
-        // Required field validation
-        if (field.hasAttribute('required') && !field.value.trim()) {
-          isValid = false;
-          errorMessage = 'This field is required';
-        }
-        
-        // Email validation
-        if (field.type === 'email' && field.value.trim()) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(field.value)) {
-            isValid = false;
-            errorMessage = 'Please enter a valid email address';
-          }
-        }
-        
-        // Show error if invalid
-        if (!isValid) {
-          formGroup.classList.add('error');
-          const errorElement = formGroup.querySelector('.error-message');
-          if (errorElement) {
-            errorElement.textContent = errorMessage;
-          }
-        }
-        
-        return isValid;
-      },
-      
-      clearError(e) {
-        const field = e.target;
-        const formGroup = field.closest('.form-group');
-        formGroup.classList.remove('error');
-      },
-      
-      setupFormSubmissions() {
-        // Contact form
-        const contactForm = document.getElementById('professional-contact');
-        contactForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          if (this.validateForm(contactForm)) {
-            this.handleFormSubmission(contactForm, 'Thank you for your message! We will respond within 24 hours.');
-          }
-        });
-        
-        // Newsletter form
-        const newsletterForm = document.getElementById('newsletter-form');
-        newsletterForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          if (this.validateForm(newsletterForm)) {
-            this.handleFormSubmission(newsletterForm, 'Thank you for subscribing to our newsletter!');
-          }
-        });
-        
-        // Client login form
-        const clientLoginForm = document.getElementById('client-login-form');
-        clientLoginForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          if (this.validateForm(clientLoginForm)) {
-            this.handleFormSubmission(clientLoginForm, 'Authentication successful! Redirecting to client portal...', true);
-          }
-        });
-      },
-      
-      validateForm(form) {
-        let isValid = true;
-        const inputs = form.querySelectorAll('input, textarea, select');
-        
-        inputs.forEach(input => {
-          if (!this.validateField({ target: input })) {
-            isValid = false;
-          }
-        });
-        
-        return isValid;
-      },
-      
-      handleFormSubmission(form, successMessage, shouldCloseModal = false) {
-        const submitButton = form.querySelector('button[type="submit"]');
-        const originalText = submitButton.innerHTML;
-        
-        // Show loading state
-        submitButton.innerHTML = '<span class="loading-spinner"></span> Processing...';
-        submitButton.disabled = true;
-        
-        // Simulate form submission
-        setTimeout(() => {
-          submitButton.innerHTML = '<i class="fas fa-check" style="margin-right: 8px;"></i> Success!';
-          setTimeout(() => {
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
-            form.reset();
-            EnhancedFeatures.showToast(successMessage);
-            
-            if (shouldCloseModal) {
-              const modal = form.closest('.modal');
-              if (modal) modal.classList.remove('active');
-            }
-          }, 1500);
-        }, 2000);
-      }
-    };
-
-    const InteractiveFeatures = {
-      init() {
-        this.setupSearch();
-        this.setupPricingCalculator();
-        this.setupDemoLaunches();
-        this.setupProjectDetails();
-        this.setupChat();
-        this.setupSocialProof();
-        this.setupLanguageSwitcher();
-        this.setupAnimations();
-      },
-      
-      setupSearch() {
-        const searchInput = document.getElementById('search-input');
-        const searchBtn = document.getElementById('search-btn');
-        
-        const performSearch = () => {
-          const query = searchInput.value.trim();
-          if (query) {
-            // In a real implementation, this would search your content
-            EnhancedFeatures.showToast(`Searching for: "${query}"`, 'info');
-          }
-        };
-        
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            performSearch();
-          }
-        });
-      },
-      
-      setupPricingCalculator() {
-        const calculateBtn = document.getElementById('calculate-quote');
-        const quoteAmount = document.getElementById('quote-amount');
-        
-        calculateBtn.addEventListener('click', function() {
-          const projectType = document.getElementById('project-type').value;
-          const complexity = document.getElementById('complexity').value;
-          
-          let basePrice = 0;
-          switch(projectType) {
-            case 'web': basePrice = 5000; break;
-            case 'mobile': basePrice = 8000; break;
-            case 'ai': basePrice = 15000; break;
-            case 'enterprise': basePrice = 25000; break;
-          }
-          
-          let multiplier = 1;
-          switch(complexity) {
-            case 'simple': multiplier = 1; break;
-            case 'medium': multiplier = 1.5; break;
-            case 'complex': multiplier = 2.5; break;
-          }
-          
-          const total = basePrice * multiplier;
-          quoteAmount.textContent = '$' + total.toLocaleString();
-          
-          // Show a toast with the detailed quote
-          setTimeout(() => {
-            EnhancedFeatures.showToast(`Your project quote: $${total.toLocaleString()}`, 'success');
-          }, 500);
-        });
-      },
-      
-      setupDemoLaunches() {
-        const demoButtons = document.querySelectorAll('.demo-launch');
-        demoButtons.forEach(button => {
-          button.addEventListener('click', function() {
-            const demoType = this.getAttribute('data-demo');
-            const demoUrls = {
-              'rental': 'https://demo.kaiguatech.com/rental-system',
-              'music': 'https://demo.kaiguatech.com/ai-music',
-              'deployment': 'https://demo.kaiguatech.com/deployment',
-              'calculations': 'https://demo.kaiguatech.com/calculations',
-              'rental-full': 'https://demo.kaiguatech.com/rental-full',
-              'music-full': 'https://demo.kaiguatech.com/music-full',
-              'analytics-full': 'https://demo.kaiguatech.com/analytics'
-            };
-            
-            // Show loading state
-            const originalText = button.innerHTML;
-            button.innerHTML = '<span class="loading-spinner"></span> Loading...';
-            
-            setTimeout(() => {
-              button.innerHTML = originalText;
-              EnhancedFeatures.showToast(`Launching ${demoType} demo...`, 'info');
-            }, 1500);
-          });
-        });
-      },
-      
-      setupProjectDetails() {
-        const projectButtons = document.querySelectorAll('.visit-button');
-        projectButtons.forEach(button => {
-          button.addEventListener('click', function(e) {
-            if (!this.hasAttribute('onclick')) {
-              e.preventDefault();
-              const project = this.getAttribute('data-project');
-              const projectDetails = {
-                'rental-portal': 'KAIGUA Rentals Portal - A comprehensive property management system',
-                'calculator': 'Overdue Rent Calculator - Automated detection and penalty system',
-                'dashboard': 'Admin Dashboard - Centralized management interface'
-              };
-              
-              EnhancedFeatures.showToast(`Project Details: ${projectDetails[project]}`, 'info');
-            }
-          });
-        });
-      },
-      
-      setupChat() {
-        const chatToggle = document.getElementById('chatToggle');
-        const chatWidget = document.getElementById('chatWidget');
-        const chatInput = document.getElementById('chat-input');
-        const sendChatBtn = document.getElementById('send-chat-btn');
-        const chatContent = document.getElementById('chat-content');
-        
-        chatToggle.addEventListener('click', function() {
-          chatWidget.classList.toggle('active');
-        });
-        
-        const sendChatMessage = () => {
-          const message = chatInput.value.trim();
-          if (message) {
-            // Add user message
-            this.addChatMessage(message, 'user');
-            chatInput.value = '';
-            
-            // Simulate bot response
-            setTimeout(() => {
-              const responses = [
-                "I understand you're interested in " + message + ". Let me connect you with our specialist.",
-                "Great question about " + message + "! Our team can provide detailed information about this.",
-                "For " + message + ", we have several solutions available. Would you like me to schedule a call?",
-                "I've noted your interest in " + message + ". Our sales team will contact you shortly.",
-                "We have extensive experience with " + message + ". Let me share some case studies with you."
-              ];
-              const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-              this.addChatMessage(randomResponse, 'bot');
-            }, 1000);
-          }
-        };
-        
-        sendChatBtn.addEventListener('click', sendChatMessage);
-        chatInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            sendChatMessage();
-          }
-        });
-        
-        this.addChatMessage = (message, sender) => {
-          const messageDiv = document.createElement('div');
-          messageDiv.style.cssText = sender === 'user' ? 
-            "background: var(--gradient-primary); color: white; padding: 15px; border-radius: 18px; margin-bottom: 15px; max-width: 80%; margin-left: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" :
-            "background: white; padding: 15px; border-radius: 18px; margin-bottom: 15px; max-width: 80%; box-shadow: 0 2px 10px rgba(0,0,0,0.1);";
-          
-          messageDiv.innerHTML = `<p style="margin: 0; font-weight: 500;">${message}</p>`;
-          chatContent.appendChild(messageDiv);
-          chatContent.scrollTop = chatContent.scrollHeight;
-        };
-      },
-      
-      setupSocialProof() {
-        const proofMessages = [
-          "Client from Kenya just booked a consultation",
-          "Project completed for Nigerian fintech startup",
-          "New security feature deployed for South African bank",
-          "AI system processing 10,000+ requests daily",
-          "Rental platform now managing 500+ properties"
-        ];
-        
-        let currentProof = 0;
-        const proofElement = document.getElementById('proof-text');
-        
-        setInterval(() => {
-          currentProof = (currentProof + 1) % proofMessages.length;
-          proofElement.textContent = proofMessages[currentProof];
-        }, 4000);
-      },
-      
-      setupLanguageSwitcher() {
-        const languageSelect = document.getElementById('language-select');
-        languageSelect.addEventListener('change', function() {
-          const selectedLanguage = this.value;
-          EnhancedFeatures.showToast(`Language changed to: ${this.options[this.selectedIndex].text}`, 'info');
-        });
-      },
-      
-      setupAnimations() {
-        // Add fade-in animation on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const fadeInOnScroll = () => {
-          fadeElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const elementVisible = 150;
-            
-            if (elementTop < window.innerHeight - elementVisible) {
-              element.style.opacity = "1";
-              element.style.transform = "translateY(0)";
-            }
-          });
-        };
-        
-        // Set initial state
-        fadeElements.forEach(element => {
-          element.style.opacity = "0";
-          element.style.transform = "translateY(30px)";
-          element.style.transition = "opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-        });
-        
-        // Debounce scroll event for better performance
-        const debounce = (func, wait) => {
-          let timeout;
-          return function executedFunction(...args) {
-            const later = () => {
-              clearTimeout(timeout);
-              func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-          };
-        };
-        
-        window.addEventListener('scroll', debounce(fadeInOnScroll, 10));
-        // Check on load as well
-        fadeInOnScroll();
-        
-        // Add intersection observer for more advanced animations
-        if ('IntersectionObserver' in window) {
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-              }
-            });
-          });
-          
-          document.querySelectorAll('.will-change').forEach(el => observer.observe(el));
-        }
-      }
-    };
-
-    // Initialize everything when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      try {
-        EnhancedFeatures.init();
-        ModalManager.init();
-        ThemeManager.init();
-        NavigationManager.init();
-        FormManager.init();
-        InteractiveFeatures.init();
-        
-        // Add performance monitoring
-        if ('performance' in window) {
-          window.addEventListener('load', () => {
-            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-            console.log(`Page load time: ${loadTime}ms`);
-          });
-        }
-      } catch (error) {
-        console.error('Application initialization error:', error);
-        // Show user-friendly error message
-        const errorDiv = document.createElement('div');
-        errorDiv.style.cssText = 'background: #f8d7da; color: #721c24; padding: 15px; margin: 20px; border-radius: 8px; text-align: center;';
-        errorDiv.innerHTML = '<p>We encountered an issue loading the page. Please refresh or try again later.</p>';
-        document.body.prepend(errorDiv);
-      }
-    });
-
-    // Service Worker Registration (for future PWA implementation)
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        // In a real implementation, you would register your service worker here
-        // navigator.serviceWorker.register('/sw.js');
       });
     }
-  </script>
 
+    // Calculators
+    function initCalculators() {
+      const calculateQuoteBtn = document.getElementById('calculate-quote');
+      
+      if (calculateQuoteBtn) {
+        calculateQuoteBtn.addEventListener('click', function() {
+          const projectType = document.getElementById('project-type').value;
+          const complexity = document.getElementById('complexity').value;
+          const quoteAmount = document.getElementById('quote-amount');
+          
+          let basePrice = 0;
+          
+          // Set base price by project type
+          switch(projectType) {
+            case 'web':
+              basePrice = 5000;
+              break;
+            case 'mobile':
+              basePrice = 8000;
+              break;
+            case 'ai':
+              basePrice = 15000;
+              break;
+            case 'enterprise':
+              basePrice = 25000;
+              break;
+          }
+          
+          // Apply complexity multiplier
+          switch(complexity) {
+            case 'simple':
+              basePrice *= 1;
+              break;
+            case 'medium':
+              basePrice *= 1.5;
+              break;
+            case 'complex':
+              basePrice *= 2.2;
+              break;
+          }
+          
+          // Format and display
+          quoteAmount.textContent = '$' + basePrice.toLocaleString();
+          
+          // Add animation
+          quoteAmount.parentElement.style.transform = 'scale(1.05)';
+          setTimeout(() => {
+            quoteAmount.parentElement.style.transform = 'scale(1)';
+          }, 300);
+        });
+      }
+    }
+
+    // Cookie Consent
+    function showCookieConsent() {
+      const cookieConsent = document.getElementById('cookie-consent');
+      const acceptCookies = document.getElementById('accept-cookies');
+      const declineCookies = document.getElementById('decline-cookies');
+      
+      // Check if user has already made a choice
+      if (!localStorage.getItem('cookiesAccepted')) {
+        setTimeout(() => {
+          cookieConsent.classList.add('show');
+        }, 2000);
+      }
+      
+      acceptCookies.addEventListener('click', function() {
+        localStorage.setItem('cookiesAccepted', 'true');
+        cookieConsent.classList.remove('show');
+        showToast('Cookie preferences saved', 'success');
+      });
+      
+      declineCookies.addEventListener('click', function() {
+        localStorage.setItem('cookiesAccepted', 'false');
+        cookieConsent.classList.remove('show');
+        showToast('Cookie preferences saved', 'success');
+      });
+    }
+
+    // Toast Notifications
+    function showToast(message, type = 'info') {
+      const toastContainer = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      let icon = 'fas fa-info-circle';
+      if (type === 'success') icon = 'fas fa-check-circle';
+      if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+      if (type === 'error') icon = 'fas fa-exclamation-circle';
+      
+      toast.innerHTML = `
+        <i class="${icon}"></i>
+        <span>${message}</span>
+      `;
+      
+      toastContainer.appendChild(toast);
+      
+      // Show toast
+      setTimeout(() => toast.classList.add('show'), 100);
+      
+      // Remove toast after delay
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 300);
+      }, 5000);
+    }
+
+    // Scroll Animations
+    function initScrollAnimations() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+      
+      // Observe all fade-in elements
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+    }
+
+    // Social Proof Rotator
+    function initSocialProof() {
+      const proofText = document.getElementById('proof-text');
+      const messages = [
+        "Client from Kenya just booked a consultation",
+        "Client from Nigeria launched their rental system",
+        "Client from South Africa upgraded to enterprise plan",
+        "Client from Ghana reported 40% efficiency gain",
+        "Client from Tanzania automated their entire workflow"
+      ];
+      
+      let currentIndex = 0;
+      
+      setInterval(() => {
+        proofText.textContent = messages[currentIndex];
+        currentIndex = (currentIndex + 1) % messages.length;
+      }, 4000);
+    }
+    
+    // Initialize social proof rotator
+    initSocialProof();
+
+    // Demo Launchers
+    document.querySelectorAll('.demo-launch').forEach(button => {
+      button.addEventListener('click', function() {
+        const demo = this.getAttribute('data-demo');
+        let message = 'Demo launched successfully!';
+        
+        switch(demo) {
+          case 'rental':
+          case 'rental-full':
+            message = 'Opening Rental System Demo...';
+            setTimeout(() => {
+              window.open('https://tech372.github.io/Kaigua-Rentals/', '_blank');
+            }, 1000);
+            break;
+          case 'music':
+          case 'music-full':
+            message = 'Opening AI Music Generator...';
+            // In a real implementation, this would open the actual demo
+            break;
+          case 'analytics-full':
+            message = 'Opening Analytics Dashboard...';
+            // In a real implementation, this would open the actual demo
+            break;
+          default:
+            message = 'Demo preview loading...';
+        }
+        
+        showToast(message, 'success');
+      });
+    });
+
+    // Project View Buttons
+    document.querySelectorAll('.visit-button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        if (!this.hasAttribute('onclick')) {
+          e.preventDefault();
+          const project = this.getAttribute('data-project');
+          showToast(`Opening ${project} details...`, 'success');
+          // In a real implementation, this would navigate to project details
+        }
+      });
+    });
+
+    // Reception Tabs
+    document.querySelectorAll('.reception-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        
+        // Update active tab
+        document.querySelectorAll('.reception-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update active content
+        document.querySelectorAll('.reception-content').forEach(content => content.classList.remove('active'));
+        document.getElementById(`${tabId}-content`).classList.add('active');
+      });
+    });
+
+    // Language Switcher
+    document.getElementById('language-select').addEventListener('change', function() {
+      const language = this.value;
+      showToast(`Language changed to ${this.options[this.selectedIndex].text}`, 'success');
+      // In a full implementation, this would trigger actual language switching
+    });
+
+    // Search Functionality
+    document.getElementById('search-btn').addEventListener('click', performSearch);
+    document.getElementById('search-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+    
+    function performSearch() {
+      const query = document.getElementById('search-input').value.trim();
+      if (query) {
+        showToast(`Searching for: ${query}`, 'info');
+        // In a full implementation, this would perform actual search
+      }
+    }
+
+    // Add loading state to all buttons with network requests
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+      link.addEventListener('click', function() {
+        showToast('Opening external link...', 'info');
+      });
+    });
+
+    // Initialize any demo data or dynamic content
+    console.log('Kaigua Tech Empire website initialized successfully');
+  </script>
 </body>
 </html>
