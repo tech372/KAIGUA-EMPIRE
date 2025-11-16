@@ -33,7 +33,9 @@
   <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
   
   <!-- Icons -->
-  <link rel="icon" type="image/png" href="https://img.icons8.com/color/96/000000/africa.png">
+  <!-- Replace these lines in your HTML head -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSI0OCIgY3k9IjQ4IiByPSI0OCIgZmlsbD0iIzVDNkJDMyIvPgogIDxwYXRoIGQ9Ik00OCAxOGMtMTYuNSAwLTMwIDEzLjUtMzAgMzBzMTMuNSAzMCAzMCAzMCAzMC0xMy41IDMwLTMwLTEzLjUtMzAtMzAtMzB6bTAgNDhjLTkuOSAwLTE4LTguMS0xOC0xOHM4LjEtMTggMTgtMTggMTggOC4xIDE4IDE4LTguMSAxOC0xOCAxOHoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNNjAgMzdjMC02LjYtNS40LTEyLTEyLTEycy0xMiA1LjQtMTIgMTIgNS40IDEyIDEyIDEyIDEyLTUuNCAxMi0xMnptLTIwIDIxYy0yLjIgMC00IDEuOC00IDRzMS44IDQgNCA0IDQtMS44IDQtNC0xLjgtNC00LTR6bTE4LTRjLTIuMiAwLTQgMS44LTQgNHMxLjggNCA0IDQgNC0xLjggNC00LTEuOC00LTQtNHoiIGZpbGw9IiM0Q0FGNTAiLz4KPC9zdmc+">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iOTYiIGZpbGw9IiM1QzZCQzAiLz4KICA8cGF0aCBkPSJNOTYgMzZjLTUzIDAtOTYgNDMtOTYgOTZzNDMgOTYgOTYgOTYgOTYtNDMgOTYtOTYtNDMtOTYtOTYtOTZ6bTAgMTYwYy0zNS4zIDAtNjQtMjguNy02NC02NHMyOC43LTY0IDY0LTY0IDY0IDI4LjcgNjQgNjQtMjguNyA2NC02NCA2NHoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNOTYgNDhjLTI2LjUgMC00OCAyMS41LTQ4IDQ4czIxLjUgNDggNDggNDggNDgtMjEuNSA0OC00OC0yMS41LTQ4LTQ4LTQ4em0wIDgwYy0xNy43IDAtMzItMTQuMy0zMi0zMnMxNC4zLTMyIDMyLTMyIDMyIDE0LjMgMzIgMzItMTQuMyAzMi0zMiAzMnoiIGZpbGw9IiM0Q0FGNTAiLz4KICA8cGF0aCBkPSJNMTEwIDc1YzAtOC44LTcuMi0xNi0xNi0xNnMtMTYgNy4yLTE2IDE2IDcuMiAxNiAxNiAxNiAxNi03LjIgMTYtMTZ6bS0yOCA0NWMtNC40IDAtOCAzLjYtOCA4czMuNiA4IDggOCA4LTMuNiA4LTgtMy42LTgtOC04em0zNS04Yy00LjQgMC04IDMuNi04IDhzMy42IDggOCA4IDgtMy42IDgtOC0zLjYtOC04LTh6IiBmaWxsPSIjNENBRjUwIi8+Cjwvc3ZnPg==">
   <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/000000/africa.png">
   <link rel="apple-touch-icon" sizes="152x152" href="https://img.icons8.com/color/152/000000/africa.png">
   <link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/color/180/000000/africa.png">
@@ -244,7 +246,6 @@
       }
     }
 
-    /* ALL YOUR ORIGINAL CSS STYLES CONTINUE HERE... */
     /* Typing Indicator */
     .typing-indicator {
       background: white;
@@ -2867,6 +2868,36 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    /* Accessibility improvements */
+    .nav-internal, .nav-external {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    .nav-internal:hover, .nav-external:hover {
+      color: var(--main-color);
+    }
+
+    /* Ensure all interactive elements have proper focus states */
+    button:focus, 
+    a:focus, 
+    input:focus, 
+    select:focus, 
+    textarea:focus {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 2px;
+    }
+
+    /* Improve accessibility for screen readers */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -3801,123 +3832,162 @@
   </footer>
 
   <script>
-    // Enhanced PWA functionality
+    // Enhanced PWA Handler with proper error handling
     class PWAHandler {
       constructor() {
         this.deferredPrompt = null;
         this.isUpdateAvailable = false;
+        this.supportsPWA = this.checkPWASupport();
         this.init();
       }
       
-      init() {
-        this.registerServiceWorker();
-        this.setupInstallPrompt();
-        this.setupOfflineDetection();
-        this.setupUpdateDetection();
+      checkPWASupport() {
+        const isSecure = window.location.protocol === 'https:';
+        const isLocalhost = window.location.hostname === 'localhost' || 
+                            window.location.hostname === '127.0.0.1';
+        
+        if (!isSecure && !isLocalhost) {
+          console.log('PWA: Not in secure context or localhost');
+          return false;
+        }
+        
+        if (!('serviceWorker' in navigator)) {
+          console.log('PWA: Service Worker not supported');
+          return false;
+        }
+        
+        return true;
       }
       
-      // Service Worker Registration
-      async registerServiceWorker() {
-        if ('serviceWorker' in navigator) {
-          try {
-            const registration = await navigator.serviceWorker.register('/sw.js');
-            console.log('SW registered: ', registration);
-            
-            // Check for updates
-            registration.addEventListener('updatefound', () => {
-              const newWorker = registration.installing;
-              console.log('SW update found:', newWorker);
-              
-              newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  this.showUpdateBanner();
-                }
-              });
-            });
-            
-            // Check if page was updated when service worker becomes active
-            if (navigator.serviceWorker.controller) {
-              console.log('SW is controlling the page');
-            }
-            
-          } catch (error) {
-            console.error('SW registration failed: ', error);
-          }
+      init() {
+        if (this.supportsPWA) {
+          this.registerServiceWorker();
+          this.setupInstallPrompt();
+          this.setupOfflineDetection();
+          this.setupUpdateDetection();
+        } else {
+          console.log('PWA features not supported in current environment');
+          this.setupFallbacks();
         }
       }
       
-      // Install Prompt Handling
-      setupInstallPrompt() {
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          this.deferredPrompt = e;
-          this.showInstallBanner();
-        });
-        
-        window.addEventListener('appinstalled', (evt) => {
-          console.log('PWA installed successfully');
-          this.deferredPrompt = null;
-          this.hideInstallBanner();
-          this.showToast('Kaigua Tech Empire installed successfully!', 'success');
-          this.trackEvent('pwa_installed');
-        });
-        
-        // Install banner buttons
-        document.getElementById('install-banner-install')?.addEventListener('click', () => {
-          this.installPWA();
-        });
-        
-        document.getElementById('install-banner-cancel')?.addEventListener('click', () => {
-          this.hideInstallBanner();
-          localStorage.setItem('installBannerDismissed', 'true');
-        });
+      // Replace the registerServiceWorker method in your HTML with this:
+async registerServiceWorker() {
+  try {
+    if ('serviceWorker' in navigator) {
+      // First, unregister any existing service workers
+      const existingRegistrations = await navigator.serviceWorker.getRegistrations();
+      for (let registration of existingRegistrations) {
+        await registration.unregister();
+        console.log('🗑️ Unregistered old service worker');
       }
+
+      // Register the new service worker
+      const registration = await navigator.serviceWorker.register('./sw.js', {
+        scope: './'
+      });
       
-      // Offline Detection
-      setupOfflineDetection() {
+      console.log('✅ Service Worker registered successfully:', registration);
+
+      // Check for updates
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        console.log('🔄 New Service Worker found:', newWorker);
+        
+        newWorker.addEventListener('statechange', () => {
+          console.log('🔄 Service Worker state:', newWorker.state);
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            console.log('🔄 New content available, showing update banner');
+            this.showUpdateBanner();
+          }
+        });
+      });
+
+      // Listen for controlled page
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('🔄 Service Worker controller changed');
+      });
+
+      return registration;
+    }
+  } catch (error) {
+    console.error('❌ Service Worker registration failed:', error);
+    // Show user-friendly error
+    this.showToast('Some offline features may not be available', 'warning');
+  }
+}
+      
+      setupFallbacks() {
         window.addEventListener('online', () => {
           document.body.classList.remove('offline');
-          document.getElementById('offline-indicator')?.classList.remove('show');
           this.showToast('Back online!', 'success');
-          this.syncOfflineData();
         });
         
         window.addEventListener('offline', () => {
           document.body.classList.add('offline');
-          document.getElementById('offline-indicator')?.classList.add('show');
           this.showToast('You are currently offline', 'warning');
         });
-        
-        // Initial check
-        if (!navigator.onLine) {
-          document.body.classList.add('offline');
-          document.getElementById('offline-indicator')?.classList.add('show');
-        }
       }
       
-      // Update Detection
-      setupUpdateDetection() {
-        document.getElementById('reload-button')?.addEventListener('click', () => {
-          window.location.reload();
+      setupInstallPrompt() {
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          this.deferredPrompt = e;
+          console.log('PWA: Install prompt available');
+          this.showInstallBanner();
         });
         
-        // Listen for service worker updates
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.addEventListener('controllerchange', () => {
-            if (this.isUpdateAvailable) {
-              this.showUpdateBanner();
-            }
+        window.addEventListener('appinstalled', () => {
+          console.log('PWA: App installed successfully');
+          this.deferredPrompt = null;
+          this.hideInstallBanner();
+          this.showToast('Kaigua Tech Empire installed successfully!', 'success');
+        });
+        
+        const installBtn = document.getElementById('install-banner-install');
+        const cancelBtn = document.getElementById('install-banner-cancel');
+        
+        if (installBtn) {
+          installBtn.addEventListener('click', () => this.installPWA());
+        }
+        
+        if (cancelBtn) {
+          cancelBtn.addEventListener('click', () => {
+            this.hideInstallBanner();
+            localStorage.setItem('installBannerDismissed', 'true');
           });
         }
       }
       
-      // Show install banner
+      async installPWA() {
+        if (this.deferredPrompt) {
+          this.deferredPrompt.prompt();
+          const { outcome } = await this.deferredPrompt.userChoice;
+          console.log(`PWA: User ${outcome} installation`);
+          this.deferredPrompt = null;
+        }
+      }
+      
+      setupOfflineDetection() {
+        if (!navigator.onLine) {
+          document.body.classList.add('offline');
+        }
+      }
+      
+      setupUpdateDetection() {
+        const reloadBtn = document.getElementById('reload-button');
+        if (reloadBtn) {
+          reloadBtn.addEventListener('click', () => {
+            window.location.reload();
+          });
+        }
+      }
+      
       showInstallBanner() {
         if (localStorage.getItem('installBannerDismissed') === 'true') return;
         
         const installBanner = document.getElementById('install-banner');
         if (installBanner && this.deferredPrompt) {
-          // Delay showing banner to avoid interrupting user experience
           setTimeout(() => {
             installBanner.classList.add('show');
           }, 5000);
@@ -3928,79 +3998,13 @@
         document.getElementById('install-banner')?.classList.remove('show');
       }
       
-      // Install PWA
-      async installPWA() {
-        if (this.deferredPrompt) {
-          this.deferredPrompt.prompt();
-          const { outcome } = await this.deferredPrompt.userChoice;
-          
-          console.log(`User ${outcome} the install prompt`);
-          this.trackEvent(`pwa_install_${outcome}`);
-          
-          if (outcome === 'accepted') {
-            this.hideInstallBanner();
-          }
-          
-          this.deferredPrompt = null;
-        }
-      }
-      
-      // Show update banner
       showUpdateBanner() {
         this.isUpdateAvailable = true;
         document.getElementById('update-banner')?.classList.add('show');
       }
       
-      // Sync offline data
-      async syncOfflineData() {
-        const pendingSubmissions = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
-        
-        if (pendingSubmissions.length > 0) {
-          this.showToast(`Submitting ${pendingSubmissions.length} saved forms...`, 'info');
-          
-          for (const submission of pendingSubmissions) {
-            try {
-              await this.submitFormData(submission.data);
-              const updatedSubmissions = pendingSubmissions.filter(s => s.id !== submission.id);
-              localStorage.setItem('pendingSubmissions', JSON.stringify(updatedSubmissions));
-            } catch (error) {
-              console.error('Failed to submit offline form:', error);
-            }
-          }
-          
-          if (pendingSubmissions.length > 0) {
-            this.showToast('All offline forms submitted successfully!', 'success');
-          }
-        }
-      }
-      
-      // Submit form data (simulated)
-      async submitFormData(formData) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            console.log('Submitting form data:', formData);
-            resolve();
-          }, 1000);
-        });
-      }
-      
-      // Track events
-      trackEvent(eventName, data = {}) {
-        const analytics = {
-          event: eventName,
-          timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent,
-          ...data
-        };
-        
-        console.log('Analytics:', analytics);
-        // Send to your analytics service here
-      }
-      
-      // Toast notification
       showToast(message, type = 'info') {
-        // Use your existing toast system
-        if (window.showToast) {
+        if (typeof window.showToast === 'function') {
           window.showToast(message, type);
         } else {
           console.log(`[${type.toUpperCase()}] ${message}`);
@@ -4010,7 +4014,6 @@
 
     // Add fade-in animation to elements
     function initFadeAnimations() {
-      // Create Intersection Observer for fade-in animations
       const fadeObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -4022,12 +4025,10 @@
         rootMargin: '0px 0px -50px 0px'
       });
 
-      // Observe all elements with will-change class
       document.querySelectorAll('.will-change').forEach(el => {
         fadeObserver.observe(el);
       });
 
-      // Also observe cards and other elements that should fade in
       document.querySelectorAll('.card, .demo-card, .resource-card, .product-card, .metric-widget').forEach(el => {
         fadeObserver.observe(el);
       });
@@ -4039,7 +4040,6 @@
       const themeIcon = themeToggle.querySelector('i');
       const themeText = themeToggle.querySelector('span');
       
-      // Check for saved theme or prefer-color-scheme
       const savedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       
@@ -4070,7 +4070,6 @@
       const navLinks = document.querySelector('.nav-links');
       const dropdowns = document.querySelectorAll('.dropdown');
       
-      // Mobile menu toggle
       menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         menuToggle.setAttribute('aria-expanded', 
@@ -4078,7 +4077,6 @@
         );
       });
       
-      // Close mobile menu when clicking outside
       document.addEventListener('click', (e) => {
         if (!e.target.closest('nav') && !e.target.closest('.menu-toggle')) {
           navLinks.classList.remove('active');
@@ -4086,11 +4084,9 @@
         }
       });
       
-      // Handle dropdown interactions
       dropdowns.forEach(dropdown => {
         const parent = dropdown.parentElement;
         
-        // Touch devices
         parent.addEventListener('touchstart', (e) => {
           if (window.innerWidth <= 768) {
             e.preventDefault();
@@ -4099,7 +4095,6 @@
         });
       });
       
-      // Smooth scrolling for internal links
       document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', function(e) {
           e.preventDefault();
@@ -4115,7 +4110,6 @@
               behavior: 'smooth'
             });
             
-            // Close mobile menu after clicking
             navLinks.classList.remove('active');
             menuToggle.setAttribute('aria-expanded', 'false');
           }
@@ -4128,7 +4122,6 @@
       const backToTop = document.getElementById('back-to-top');
       const readingProgress = document.getElementById('reading-progress');
       
-      // Back to top button
       window.addEventListener('scroll', () => {
         if (window.pageYOffset > 300) {
           backToTop.classList.add('show');
@@ -4136,7 +4129,6 @@
           backToTop.classList.remove('show');
         }
         
-        // Reading progress bar
         if (readingProgress) {
           const winHeight = window.innerHeight;
           const docHeight = document.documentElement.scrollHeight;
@@ -4156,13 +4148,11 @@
 
     // Initialize form functionality
     function initForms() {
-      // Contact form
       const contactForm = document.getElementById('contact-form');
       if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
           e.preventDefault();
           
-          // Show loading state
           const submitBtn = this.querySelector('button[type="submit"]');
           const submitText = submitBtn.querySelector('.submit-text');
           const spinner = submitBtn.querySelector('.loading-spinner');
@@ -4171,14 +4161,11 @@
           spinner.style.display = 'inline-block';
           submitBtn.disabled = true;
           
-          // Simulate form submission
           setTimeout(() => {
             showToast('Message sent successfully! We\'ll get back to you soon.', 'success');
             
-            // Reset form
             this.reset();
             
-            // Reset button state
             submitText.style.display = 'inline';
             spinner.style.display = 'none';
             submitBtn.disabled = false;
@@ -4186,7 +4173,6 @@
         });
       }
       
-      // Newsletter form
       const newsletterForm = document.getElementById('newsletter-form');
       if (newsletterForm) {
         newsletterForm.addEventListener('submit', function(e) {
@@ -4198,7 +4184,6 @@
         });
       }
       
-      // Form validation
       document.querySelectorAll('.form-group input, .form-group textarea, .form-group select').forEach(input => {
         input.addEventListener('blur', function() {
           validateField(this);
@@ -4211,11 +4196,9 @@
       const formGroup = field.closest('.form-group');
       const errorMessage = formGroup.querySelector('.error-message');
       
-      // Reset state
       formGroup.classList.remove('error');
       errorMessage.style.display = 'none';
       
-      // Required field validation
       if (field.hasAttribute('required') && !field.value.trim()) {
         formGroup.classList.add('error');
         errorMessage.textContent = 'This field is required';
@@ -4223,7 +4206,6 @@
         return false;
       }
       
-      // Email validation
       if (field.type === 'email' && field.value) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(field.value)) {
@@ -4260,7 +4242,6 @@
         }
       });
       
-      // Send message function
       function sendMessage(message, isUser = true) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
@@ -4273,7 +4254,6 @@
         chatContent.scrollTop = chatContent.scrollHeight;
         
         if (isUser) {
-          // Simulate bot response after delay
           setTimeout(() => {
             const responses = [
               "I understand you're interested in our services. Let me connect you with our specialist.",
@@ -4287,7 +4267,6 @@
         }
       }
       
-      // Send button click
       sendChatBtn.addEventListener('click', () => {
         if (chatInput.value.trim()) {
           sendMessage(chatInput.value.trim());
@@ -4295,7 +4274,6 @@
         }
       });
       
-      // Enter key to send
       chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && chatInput.value.trim()) {
           sendMessage(chatInput.value.trim());
@@ -4303,7 +4281,6 @@
         }
       });
       
-      // Quick replies
       quickReplies.forEach(reply => {
         reply.addEventListener('click', () => {
           const replyText = reply.getAttribute('data-reply');
@@ -4330,7 +4307,6 @@
 
     // Initialize modals
     function initModals() {
-      // Client portal modal
       const clientPortalBtn = document.getElementById('client-portal-btn');
       const clientModal = document.getElementById('client-login-modal');
       const closeClientModal = document.getElementById('close-client-modal');
@@ -4348,7 +4324,6 @@
         });
       }
       
-      // Consultation modal
       const consultationLinks = document.querySelectorAll('a[href="#consultation"]');
       const consultationModal = document.getElementById('consultation-modal');
       const closeConsultationModal = document.getElementById('close-consultation-modal');
@@ -4370,7 +4345,6 @@
         });
       }
       
-      // Close modals when clicking outside
       document.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal')) {
           e.target.classList.remove('active');
@@ -4381,7 +4355,6 @@
 
     // Initialize calculators
     function initCalculators() {
-      // Pricing calculator
       const calculateBtn = document.getElementById('calculate-quote');
       const projectType = document.getElementById('project-type');
       const complexity = document.getElementById('complexity');
@@ -4394,7 +4367,6 @@
           
           let basePrice = 0;
           
-          // Base prices by project type
           switch(type) {
             case 'web': basePrice = 5000; break;
             case 'mobile': basePrice = 8000; break;
@@ -4402,7 +4374,6 @@
             case 'enterprise': basePrice = 25000; break;
           }
           
-          // Complexity multiplier
           switch(complex) {
             case 'simple': basePrice *= 1; break;
             case 'medium': basePrice *= 1.5; break;
@@ -4430,14 +4401,12 @@
         dots[currentSlide].classList.add('active');
       }
       
-      // Dot click events
       dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
           showSlide(index);
         });
       });
       
-      // Auto-advance slides
       setInterval(() => {
         showSlide(currentSlide + 1);
       }, 5000);
@@ -4449,14 +4418,12 @@
       const timeSlots = document.getElementById('time-slots');
       
       if (calendar) {
-        // Generate calendar days (simplified)
         let calendarHTML = '';
         for (let i = 1; i <= 31; i++) {
           calendarHTML += `<div class="calendar-day" data-day="${i}">${i}</div>`;
         }
         calendar.innerHTML = calendarHTML;
         
-        // Generate time slots
         const times = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
         let timeHTML = '';
         times.forEach(time => {
@@ -4464,7 +4431,6 @@
         });
         timeSlots.innerHTML = timeHTML;
         
-        // Day selection
         calendar.addEventListener('click', (e) => {
           if (e.target.classList.contains('calendar-day')) {
             document.querySelectorAll('.calendar-day').forEach(day => {
@@ -4474,7 +4440,6 @@
           }
         });
         
-        // Time selection
         timeSlots.addEventListener('click', (e) => {
           if (e.target.classList.contains('time-slot')) {
             document.querySelectorAll('.time-slot').forEach(slot => {
@@ -4485,7 +4450,6 @@
         });
       }
       
-      // Schedule consultation button
       const scheduleBtn = document.getElementById('schedule-consultation-btn');
       if (scheduleBtn) {
         scheduleBtn.addEventListener('click', () => {
@@ -4514,9 +4478,7 @@
           
           showToast(`${productName} added to cart! Redirecting to checkout...`, 'success');
           
-          // Simulate redirect to checkout
           setTimeout(() => {
-            // In a real implementation, this would redirect to a checkout page
             console.log(`Proceeding to checkout for: ${product}`);
           }, 1500);
         });
@@ -4525,7 +4487,6 @@
 
     // Initialize live metrics
     function initLiveMetrics() {
-      // Update metrics periodically
       setInterval(() => {
         const systemsMonitored = document.getElementById('systems-monitored');
         const uptimePercentage = document.getElementById('uptime-percentage');
@@ -4533,14 +4494,12 @@
         const responseTime = document.getElementById('response-time');
         
         if (systemsMonitored) {
-          // Simulate small fluctuations in metrics
           const currentSystems = parseInt(systemsMonitored.textContent);
           const newSystems = Math.max(240, currentSystems + Math.floor(Math.random() * 3) - 1);
           systemsMonitored.textContent = newSystems;
         }
         
         if (uptimePercentage) {
-          // Keep uptime high but with tiny variations
           const uptime = (99.95 + Math.random() * 0.08).toFixed(2);
           uptimePercentage.textContent = `${uptime}%`;
         }
@@ -4598,10 +4557,8 @@
       
       toastContainer.appendChild(toast);
       
-      // Animate in
       setTimeout(() => toast.classList.add('show'), 100);
       
-      // Remove after delay
       setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => {
@@ -4618,9 +4575,6 @@
       languageSelect.addEventListener('change', function() {
         const selectedLanguage = this.value;
         showToast(`Language changed to ${this.options[this.selectedIndex].text}`, 'info');
-        
-        // In a real implementation, this would load translations
-        // For now, we'll just demonstrate the functionality
         console.log(`Language switched to: ${selectedLanguage}`);
       });
     }
@@ -4641,7 +4595,6 @@
         const query = searchInput.value.trim();
         if (query) {
           showToast(`Searching for: "${query}"`, 'info');
-          // In a real implementation, this would filter content or call a search API
           console.log(`Search query: ${query}`);
         }
       }
@@ -4676,8 +4629,6 @@
         
         showToast(message, 'info');
         
-        // In a real implementation, this would open the actual demo
-        // For now, we'll simulate with a timeout
         setTimeout(() => {
           showToast('Demo loaded successfully!', 'success');
         }, 1500);
@@ -4728,9 +4679,17 @@
       }, 4000);
     }
 
+    // Global error handling
+    window.addEventListener('error', function(e) {
+      console.error('Global error:', e.error);
+    });
+
+    window.addEventListener('unhandledrejection', function(e) {
+      console.error('Unhandled promise rejection:', e.reason);
+    });
+
     // Initialize all components when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize your existing components first
       initTheme();
       initNavigation();
       initScrollEffects();
@@ -4746,10 +4705,8 @@
       initFadeAnimations();
       rotateSocialProof();
       
-      // Then initialize PWA
       window.pwaHandler = new PWAHandler();
       
-      // Add will-change to elements for performance
       document.querySelectorAll('.card, .demo-card, .metric-widget').forEach(el => {
         el.classList.add('will-change');
       });

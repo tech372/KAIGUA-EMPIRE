@@ -1,63 +1,47 @@
 // Service Worker for Kaigua Tech Empire
 const CACHE_NAME = 'kaigua-tech-v1.2.0';
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
-
-// Assets to cache immediately
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  'https://img.icons8.com/color/96/000000/africa.png',
-  'https://img.icons8.com/color/192/000000/africa.png',
-  'https://img.icons8.com/color/512/000000/africa.png',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap'
+const urlsToCache = [
+  './',
+  './index.html',
+  './manifest.json'
 ];
 
-// Dynamic assets (API endpoints, images)
-const DYNAMIC_ASSETS = [
-  'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-  'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1073&q=80'
-];
-
-// Install event - cache static assets
+// Install event - cache essential resources
 self.addEventListener('install', (event) => {
-  console.log('Service Worker: Installing...');
+  console.log('🛠️ Service Worker installing...');
   
   event.waitUntil(
-    caches.open(STATIC_CACHE)
+    caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Service Worker: Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
+        console.log('📦 Opened cache');
+        return cache.addAll(urlsToCache);
       })
       .then(() => {
-        console.log('Service Worker: Installed');
+        console.log('✅ All resources cached');
         return self.skipWaiting();
       })
       .catch((error) => {
-        console.error('Service Worker: Installation failed', error);
+        console.error('❌ Cache installation failed:', error);
       })
   );
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker: Activated');
+  console.log('🚀 Service Worker activating...');
   
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== STATIC_CACHE && cache !== DYNAMIC_CACHE) {
-            console.log('Service Worker: Clearing old cache', cache);
-            return caches.delete(cache);
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            console.log('🗑️ Deleting old cache:', cacheName);
+            return caches.delete(cacheName);
           }
         })
       );
-    })
-    .then(() => {
-      console.log('Service Worker: Claiming clients');
+    }).then(() => {
+      console.log('✅ Service Worker activated');
       return self.clients.claim();
     })
   );
@@ -65,153 +49,85 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache or network
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') return;
-
-  // Skip Chrome extensions
-  if (event.request.url.startsWith('chrome-extension://')) return;
+  // Skip non-GET requests and chrome-extension requests
+  if (event.request.method !== 'GET' || event.request.url.startsWith('chrome-extension://')) {
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request)
-      .then((cachedResponse) => {
-        // Return cached version if available
-        if (cachedResponse) {
-          console.log('Service Worker: Serving from cache', event.request.url);
-          return cachedResponse;
+      .then((response) => {
+        // Return cached version if found
+        if (response) {
+          console.log('📂 Serving from cache:', event.request.url);
+          return response;
         }
 
-        // Otherwise, fetch from network
+        // Otherwise fetch from network
+        console.log('🌐 Fetching from network:', event.request.url);
         return fetch(event.request)
-          .then((fetchResponse) => {
+          .then((networkResponse) => {
             // Check if we received a valid response
-            if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
-              return fetchResponse;
+            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+              return networkResponse;
             }
 
             // Clone the response
-            const responseToCache = fetchResponse.clone();
+            const responseToCache = networkResponse.clone();
 
-            // Add to dynamic cache
-            caches.open(DYNAMIC_CACHE)
+            // Add to cache for future visits
+            caches.open(CACHE_NAME)
               .then((cache) => {
-                // Only cache successful responses and same-origin requests
-                if (event.request.url.startsWith('http') && 
-                    (event.request.url.includes('localhost') || 
-                     event.request.url.includes('kaiguatech'))) {
-                  cache.put(event.request, responseToCache);
-                  console.log('Service Worker: Caching dynamic resource', event.request.url);
-                }
+                cache.put(event.request, responseToCache);
+                console.log('💾 Cached new resource:', event.request.url);
               });
 
-            return fetchResponse;
+            return networkResponse;
           })
           .catch((error) => {
-            console.error('Service Worker: Fetch failed', error);
+            console.error('❌ Fetch failed:', error);
             
             // If both cache and network fail, show offline page
             if (event.request.destination === 'document') {
-              return caches.match('/')
-                .then((cachedPage) => {
-                  return cachedPage || new Response('Offline - Please check your connection', {
-                    status: 503,
-                    statusText: 'Service Unavailable',
-                    headers: new Headers({
-                      'Content-Type': 'text/html'
-                    })
-                  });
-                });
+              return caches.match('./index.html');
             }
             
-            // For other requests, return error
-            return new Response('Network error occurred', {
+            // For other resources, you could return a fallback
+            return new Response('Network error happened', {
               status: 408,
-              statusText: 'Network Error'
+              headers: { 'Content-Type': 'text/plain' },
             });
           });
       })
   );
 });
 
-// Background sync for offline form submissions
-self.addEventListener('sync', (event) => {
-  console.log('Service Worker: Background sync', event.tag);
+// Handle messages from the main thread
+self.addEventListener('message', (event) => {
+  console.log('📨 Message received in service worker:', event.data);
   
-  if (event.tag === 'background-form-sync') {
-    event.waitUntil(syncForms());
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+  
+  if (event.data && event.data.type === 'GET_VERSION') {
+    event.ports[0].postMessage({ version: CACHE_NAME });
   }
 });
 
-// Sync forms when back online
-async function syncForms() {
-  try {
-    const pendingSubmissions = await getPendingSubmissions();
-    
-    for (const submission of pendingSubmissions) {
-      try {
-        await submitFormData(submission.data);
-        await removePendingSubmission(submission.id);
-        console.log('Service Worker: Successfully synced form submission', submission.id);
-        
-        // Send message to client about successful sync
-        self.clients.matchAll().then((clients) => {
-          clients.forEach((client) => {
-            client.postMessage({
-              type: 'FORM_SYNC_SUCCESS',
-              submissionId: submission.id
-            });
-          });
-        });
-      } catch (error) {
-        console.error('Service Worker: Failed to sync form submission', submission.id, error);
-      }
-    }
-  } catch (error) {
-    console.error('Service Worker: Error during form sync', error);
-  }
-}
-
-// Helper functions for form synchronization
-async function getPendingSubmissions() {
-  return new Promise((resolve) => {
-    // This would interact with IndexedDB in a real implementation
-    const submissions = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
-    resolve(submissions);
-  });
-}
-
-async function removePendingSubmission(id) {
-  return new Promise((resolve) => {
-    const submissions = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
-    const updatedSubmissions = submissions.filter(s => s.id !== id);
-    localStorage.setItem('pendingSubmissions', JSON.stringify(updatedSubmissions));
-    resolve();
-  });
-}
-
-async function submitFormData(formData) {
-  // Simulate form submission to server
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // In real implementation, this would be a fetch request to your backend
-      console.log('Submitting form data to server:', formData);
-      resolve();
-    }, 1000);
-  });
-}
-
-// Push notifications
+// Handle push notifications (optional - for future use)
 self.addEventListener('push', (event) => {
-  console.log('Service Worker: Push received');
+  console.log('📬 Push notification received');
   
   if (!event.data) return;
-
+  
   const data = event.data.json();
   const options = {
     body: data.body || 'New update from Kaigua Tech Empire',
-    icon: 'https://img.icons8.com/color/192/000000/africa.png',
-    badge: 'https://img.icons8.com/color/96/000000/africa.png',
-    image: data.image,
-    data: data.url,
+    icon: './icons/icon-192x192.png',
+    badge: './icons/icon-96x96.png',
+    tag: 'kaigua-notification',
+    requireInteraction: true,
     actions: [
       {
         action: 'open',
@@ -221,90 +137,78 @@ self.addEventListener('push', (event) => {
         action: 'close',
         title: 'Close'
       }
-    ],
-    tag: data.tag || 'general',
-    renotify: true,
-    requireInteraction: true
+    ]
   };
-
+  
   event.waitUntil(
     self.registration.showNotification(data.title || 'Kaigua Tech Empire', options)
   );
 });
 
-// Notification click handler
+// Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
-  console.log('Service Worker: Notification clicked');
+  console.log('🔔 Notification clicked');
   
   event.notification.close();
-
+  
   if (event.action === 'open') {
     event.waitUntil(
-      clients.matchAll({ type: 'window' }).then((clientList) => {
-        for (const client of clientList) {
-          if (client.url === '/' && 'focus' in client) {
+      clients.matchAll({ type: 'window' }).then((windowClients) => {
+        // Check if app is already open
+        for (let client of windowClients) {
+          if (client.url.includes(self.location.origin) && 'focus' in client) {
             return client.focus();
           }
         }
+        
+        // If not open, open new window
         if (clients.openWindow) {
-          return clients.openWindow('/');
-        }
-      })
-    );
-  } else if (event.action === 'close') {
-    // Notification closed, do nothing
-  } else {
-    // Default action - open the app
-    event.waitUntil(
-      clients.matchAll({ type: 'window' }).then((clientList) => {
-        for (const client of clientList) {
-          if (client.url === '/' && 'focus' in client) {
-            return client.focus();
-          }
-        }
-        if (clients.openWindow) {
-          return clients.openWindow('/');
+          return clients.openWindow('./');
         }
       })
     );
   }
 });
 
-// Handle messages from the main thread
-self.addEventListener('message', (event) => {
-  console.log('Service Worker: Message received', event.data);
+// Handle background sync (optional - for future use)
+self.addEventListener('sync', (event) => {
+  console.log('🔄 Background sync:', event.tag);
   
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-  
-  if (event.data && event.data.type === 'CACHE_FORM_DATA') {
-    // Cache form data for offline submission
-    const formData = event.data.payload;
-    cacheFormData(formData);
+  if (event.tag === 'background-sync') {
+    event.waitUntil(doBackgroundSync());
   }
 });
 
-// Cache form data for later submission
-async function cacheFormData(formData) {
-  try {
-    const pendingSubmissions = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
-    const submission = {
-      id: Date.now().toString(),
-      data: formData,
-      timestamp: new Date().toISOString()
-    };
-    
-    pendingSubmissions.push(submission);
-    localStorage.setItem('pendingSubmissions', JSON.stringify(pendingSubmissions));
-    
-    console.log('Service Worker: Form data cached for offline submission');
-    
-    // Register for background sync
-    if ('sync' in self.registration) {
-      await self.registration.sync.register('background-form-sync');
-    }
-  } catch (error) {
-    console.error('Service Worker: Error caching form data', error);
-  }
+// Background sync function
+function doBackgroundSync() {
+  return new Promise((resolve) => {
+    console.log('🔄 Performing background sync...');
+    // Add your background sync logic here
+    setTimeout(() => {
+      console.log('✅ Background sync completed');
+      resolve();
+    }, 1000);
+  });
 }
+
+// Handle periodic background sync (optional)
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'content-update') {
+    console.log('🔄 Periodic sync for content updates');
+    event.waitUntil(updateContent());
+  }
+});
+
+function updateContent() {
+  return fetch('./')
+    .then(response => {
+      if (response.ok) {
+        console.log('✅ Content updated successfully');
+      }
+    })
+    .catch(error => {
+      console.error('❌ Content update failed:', error);
+    });
+}
+
+console.log('👷 Service Worker loaded successfully');
